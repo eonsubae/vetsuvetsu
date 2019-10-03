@@ -5,7 +5,7 @@ import HeadContent from './HeadContent';
 import Header from './Header';
 import '../../styles/base/base.scss';
 
-const BaseLayout = ( Component: any ) => {
+const BaseLayout: React.FC = ( Component: any ) => {
   return (
     <Fragment>
       <Head>

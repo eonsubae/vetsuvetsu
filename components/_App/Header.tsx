@@ -11,7 +11,7 @@ const Header: React.FC = () => {
       <div className="navs-container">
         <HeaderNav 
           path="/wordbook" 
-          text="単語帳" 
+          text="Wordbook" 
         />
       </div>
     </header>

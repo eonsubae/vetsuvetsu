@@ -1,8 +1,10 @@
+import '../../styles/components/header/header.scss';
+import Logo from '../Header/Logo';
 
 const Header = () => {
   return (
-    <header>
-      header
+    <header className="main-header">
+      <Logo />
     </header>
   );
 };

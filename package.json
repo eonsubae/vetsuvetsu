@@ -1,0 +1,40 @@
+{
+  "name": "vetsuvetsu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "start": "next start",
+    "build": "next build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eonsubae/vetsuvetsu.git"
+  },
+  "author": "eonsubae",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eonsubae/vetsuvetsu/issues"
+  },
+  "homepage": "https://vetsuvetsu.now.sh",
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "axios": "^0.19.0",
+    "bcrypt": "^3.0.6",
+    "js-cookie": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.7",
+    "next": "^9.0.7",
+    "node-sass": "^4.12.0",
+    "nookies": "^2.0.8",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.9",
+    "@types/react": "^16.9.4",
+    "@types/react-dom": "^16.9.1",
+    "typescript": "^3.6.3"
+  }
+}

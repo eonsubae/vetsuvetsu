@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import Head from 'next/head';
 
 import HeadContent from './HeadContent';
+import Header from './Header';
+import '../../styles/base/base.scss';
 
 const BaseLayout = ( Component: any ) => {
   return (
@@ -9,9 +11,10 @@ const BaseLayout = ( Component: any ) => {
       <Head>
         <HeadContent />
       </Head>
-      <div>
+      <Fragment>
+        <Header />
         {Component.children}
-      </div>
+      </Fragment>
     </Fragment>
   );
 };

@@ -1,8 +1,13 @@
+@import '../../abstracts/variables.scss';
+
 .header-nav {
+
+  margin-left: 5rem;
 
   &__text {
     text-decoration: none;
     font-size: 2rem;
-    color: black;
+    font-weight: 700;
+    color: $header-nav-text-color;
   }
 }

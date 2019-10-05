@@ -1,5 +1,4 @@
 import React from 'react';
-import { IoIosMore } from 'react-icons/io';
 
 import '../../styles/components/wordbook/wordbook-list.scss';
 

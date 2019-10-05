@@ -1,0 +1,51 @@
+@import '../../abstracts/mixins.scss';
+
+.editor-small {
+  position: relative;
+  width: 20rem;
+  height: 5rem;
+  border: 1px solid rgb(226, 221, 221);
+
+  &__content {
+    @include absCenter;
+    @include flexCenter;
+    z-index: 10;
+
+    &--type {
+      display: inline-block;
+      width: 5.5rem;
+      height: 100%;
+      border: 3px solid slateblue;
+      border-radius: 2.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgb(96, 110, 134);
+      text-align: center;
+    }
+  
+    &--value {
+      font-size: 2rem;
+      color: rgb(73, 68, 68);
+    }
+
+    &--edit {
+      cursor: pointer;
+    }
+  }
+
+  &__input {
+    @include absCenter;
+    @include flexCenter;
+
+    z-index: 1000;
+    visibility: visible;
+    width: 100%;
+    height: 3rem;
+    text-align: center;
+
+    &:disabled {
+      z-index: 1;
+      visibility: hidden;
+    }
+  }
+}

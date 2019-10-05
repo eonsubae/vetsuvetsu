@@ -9,9 +9,6 @@ const WordbookListHeader: React.FC = () => {
       <div className="wordbook-list__header--title">
         <h2 className="wordbook-list__header--title-text">All Tasks</h2>
       </div>
-      <div className="wordbook-list__header--individual">
-        <IoIosMore className="wordbook-list__header--individual-img" />
-      </div>
     </header>
   );
 };

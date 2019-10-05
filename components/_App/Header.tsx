@@ -13,6 +13,10 @@ const Header: React.FC = () => {
           path="/wordbook" 
           text="Wordbook" 
         />
+        <HeaderNav 
+          path="/editor" 
+          text="Editor" 
+        />
       </div>
     </header>
   );

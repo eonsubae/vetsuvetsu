@@ -8,6 +8,8 @@ const Editor: NextPage = () => {
     <main className="editor">
       <section className="editor-container">
         <form>
+          <label id="subject">주제: </label>
+          <input type="text" name="subject" />
           <EditorRow />
         </form>
       </section>

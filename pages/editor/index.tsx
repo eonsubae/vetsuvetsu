@@ -1,8 +1,17 @@
 import { NextPage } from 'next';
 
+import '../../styles/components/editor/editor.scss';
+import EditorRow from '../../components/Editor/EditorRow';
+
 const Editor: NextPage = () => {
   return (
-    <h1>Editor</h1>
+    <main className="editor">
+      <section className="editor-container">
+        <form>
+          <EditorRow />
+        </form>
+      </section>
+    </main>
   );
 };
 

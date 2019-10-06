@@ -52,15 +52,24 @@ const EditorSmall = (el: SmallElement) => {
           <MdEdit size="2rem" />
         </span>
       </div>
-      <input 
-        className="editor-small__input"
-        type="text" 
-        value={editedText}
-        disabled={!useEdit}
-        ref={inputRef}
-        onChange={handleTextChange}
-        onKeyDown={handleKeyDown}
-      />
+      <label>
+        <input 
+          type="hidden"
+          value={el.type}
+        />
+      </label>
+      <label htmlFor="content">
+        <input 
+          id={`content-`}
+          className="editor-small__input"
+          type="text" 
+          value={editedText}
+          disabled={!useEdit}
+          ref={inputRef}
+          onChange={handleTextChange}
+          onKeyDown={handleKeyDown}
+        />
+      </label>
     </div>
   )
 };

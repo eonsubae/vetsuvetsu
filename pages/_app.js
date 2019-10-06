@@ -1,6 +1,12 @@
 import React from 'react';
 import App from 'next/app';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
 import BaseLayout from '../components/_App/BaseLayout';
+import rootReducer from '../contexts/index';
+
+const store = createStore(rootReducer);
 
 class MyApp extends App {
   // Only uncomment this method if you have blocking data requirements for
@@ -22,7 +28,9 @@ class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <BaseLayout>
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
       </BaseLayout>
     );
   }

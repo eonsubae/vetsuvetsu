@@ -1,9 +1,26 @@
-import { NextPage } from 'next';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { RootState } from '../../contexts/index';
+import { complete, incomplete } from '../../contexts/editor';
 
 import '../../styles/components/editor/editor.scss';
 import EditorRow from '../../components/Editor/EditorRow';
 
-const Editor: NextPage = () => {
+const Editor: React.FC = () => {
+  const lastRowDone = useSelector((state: RootState) => state.editor.lastRowDone);
+  const dispatch = useDispatch();
+
+  console.log(lastRowDone);
+
+  const onComplete = () => {
+    dispatch(complete());
+  }
+
+  const onIncomplete = () => {
+    dispatch(incomplete());
+  }
+
   return (
     <main className="editor">
       <section className="editor-container">
@@ -12,7 +29,10 @@ const Editor: NextPage = () => {
             <input className="editor__form--subject-input" type="text" name="subject" id="subject" />
           </label>
           <div className="editor__form--row-container">
-            <EditorRow />
+            <EditorRow
+              onComplete={onComplete}
+              onIncomplete={onIncomplete}
+            />
           </div>
         </form>
       </section>

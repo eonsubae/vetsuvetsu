@@ -8,9 +8,15 @@ type Element = {
   value: string;
 };
 
-const EditorRow = () => {
+type EditRowProps = {
+  onComplete: () => void;
+  onIncomplete: () => void;
+}
+
+const EditorRow = ({ onComplete, onIncomplete }: EditRowProps) => {
   const [inputText, setInputText] = useState("");
   const [elements, setElements] = useState<Element[]>([]);
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.keyCode;
@@ -39,6 +45,11 @@ const EditorRow = () => {
     };
     setElements(prevState => prevState.concat(element));
     setInputText("");
+
+    if (elements.length === 2) {
+      setIsComplete(true);
+      onComplete();
+    }
   }
 
   const handleTextInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +73,7 @@ const EditorRow = () => {
         onKeyDown={handleKeyDown}
         onChange={handleTextInput}
         value={inputText}
-        disabled={elements.length === 3}
+        disabled={isComplete}
       />
     </div>
   );

@@ -1,9 +1,16 @@
-.editor-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+@import '../../abstracts/mixins.scss';
 
-  &__input:disabled {
-    display: none;
+.editor-row {
+  @include flexCenter;
+  justify-content: flex-start;
+
+  &__input {
+    
+    width: 33.333%;
+    height: 5rem;
+  
+    &:disabled {
+      display: none;
+    }
   }
 }

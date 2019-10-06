@@ -7,10 +7,13 @@ const Editor: NextPage = () => {
   return (
     <main className="editor">
       <section className="editor-container">
-        <form>
-          <label id="subject">주제: </label>
-          <input type="text" name="subject" />
-          <EditorRow />
+        <form className="editor__form" action="http://localhost:3000/api/editor" method="post">
+          <label className="editor__form--subject" htmlFor="subject">Subject:&nbsp;&nbsp;
+            <input className="editor__form--subject-input" type="text" name="subject" id="subject" />
+          </label>
+          <div className="editor__form--row-container">
+            <EditorRow />
+          </div>
         </form>
       </section>
     </main>

@@ -12,5 +12,36 @@
     
     width: 60%;
     height: 100%;
+    border: 1px solid black;
+  }
+
+  &__form {
+    @include flexCenter;
+    flex-direction: column;
+
+    width: 80%;
+    height: 100%;
+    border: 3px solid sandybrown;
+
+    &--subject {
+      display: inline-block;
+      width: 100%;
+      height: 5rem;
+      font-size: 2rem;
+      font-weight: 700;
+
+      &-input {
+        display: inline-block;
+        width: 70%;
+        height: 100%;
+      }
+    }
+
+    &--row-container {
+      margin-top: 1rem;
+      border: 3px solid steelblue;
+      width: 100%;
+      height: 50rem;
+    }
   }
 }

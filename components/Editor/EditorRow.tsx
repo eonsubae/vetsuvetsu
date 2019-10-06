@@ -48,7 +48,7 @@ const EditorRow = () => {
   }
 
   return (
-    <article className="editor-row">
+    <div className="editor-row">
       {elements.map((el, idx) => 
         <EditorSmall 
           key={idx}
@@ -64,7 +64,7 @@ const EditorRow = () => {
         value={inputText}
         disabled={elements.length === 3}
       />
-    </article>
+    </div>
   );
 };
 

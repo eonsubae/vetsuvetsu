@@ -64,7 +64,6 @@ const EditorRow = ({ onComplete }: EditRowProps) => {
     const rowCount: number = row.parentElement.childNodes.length;
 
     if (rowCount === 1) return;
-    if (!isComplete) return;
     row.remove();
   }
 
@@ -86,7 +85,7 @@ const EditorRow = ({ onComplete }: EditRowProps) => {
         value={inputText}
         disabled={isComplete}
       />
-      <button className="editor-row__btn" type="button" onClick={handleRowRemove}>
+      <button disabled={!isComplete} className="editor-row__btn" type="button" onClick={handleRowRemove}>
         <MdClear className="editor-row__btn--icon" />
       </button>
     </div>

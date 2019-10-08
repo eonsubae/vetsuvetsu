@@ -1,4 +1,5 @@
 @import '../../abstracts/mixins.scss';
+@import '../../abstracts/variables.scss';
 
 .editor-row {
   @include flexCenter;
@@ -17,8 +18,14 @@
   &__btn {
     width: 5rem;
     height: 5rem;
-    background-color: rgb(51, 51, 51);
+    background-color: $editor-row-button-color;
     border: none;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: $editor-row-button-disabled-color;
+      cursor: not-allowed;
+    }
 
     &--icon {
       width: 50%;

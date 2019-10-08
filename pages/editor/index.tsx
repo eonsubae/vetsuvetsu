@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../contexts/index';
@@ -8,10 +8,9 @@ import '../../styles/components/editor/editor.scss';
 import EditorRow from '../../components/Editor/EditorRow';
 
 const Editor: React.FC = () => {
+  const [rowCount, setRowCount] = useState(1);
   const lastRowDone = useSelector((state: RootState) => state.editor.lastRowDone);
   const dispatch = useDispatch();
-
-  console.log(lastRowDone);
 
   const onComplete = () => {
     dispatch(complete());
@@ -21,6 +20,41 @@ const Editor: React.FC = () => {
     dispatch(incomplete());
   }
 
+  const [rowEditors, setRowEditors] = useState(
+    [
+      <EditorRow 
+        key={rowCount}
+        onComplete={onComplete}
+        onIncomplete={onIncomplete} 
+      />
+    ]
+  );
+
+  useEffect(() => {
+    if (lastRowDone) {
+      setRowCount(prevState => prevState + 1);
+      onIncomplete();
+    }
+  }, [lastRowDone]);
+
+  useEffect(() => {
+    if (rowCount > 1) {
+      addEditorRow();
+    }
+  }, [rowCount]);
+
+  const addEditorRow = () => {
+      setRowEditors(
+        prevState =>
+        prevState.concat(
+          <EditorRow 
+            key={`editRow-${rowCount}`} 
+            onComplete={onComplete} 
+            onIncomplete={onIncomplete} 
+          />)
+      )
+  };
+
   return (
     <main className="editor">
       <section className="editor-container">
@@ -29,10 +63,7 @@ const Editor: React.FC = () => {
             <input className="editor__form--subject-input" type="text" name="subject" id="subject" />
           </label>
           <div className="editor__form--row-container">
-            <EditorRow
-              onComplete={onComplete}
-              onIncomplete={onIncomplete}
-            />
+            {rowEditors}
           </div>
         </form>
       </section>

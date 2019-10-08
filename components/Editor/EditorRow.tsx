@@ -68,6 +68,7 @@ const EditorRow = ({ onComplete, onIncomplete }: EditRowProps) => {
         />
       )}
       <input 
+        autoFocus
         className="editor-row__input"
         type="text" 
         onKeyDown={handleKeyDown}

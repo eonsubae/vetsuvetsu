@@ -13,4 +13,17 @@
       display: none;
     }
   }
+
+  &__btn {
+    width: 5rem;
+    height: 5rem;
+    background-color: rgb(51, 51, 51);
+    border: none;
+
+    &--icon {
+      width: 50%;
+      height: 50%;
+      color: white;
+    }
+  }
 }

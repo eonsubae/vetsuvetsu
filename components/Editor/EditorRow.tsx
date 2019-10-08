@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { MdClear } from 'react-icons/md';
 
 import '../../styles/components/editor/editor-row.scss';
 import EditorSmall from './EditorSmall';
@@ -10,13 +11,13 @@ type Element = {
 
 type EditRowProps = {
   onComplete: () => void;
-  onIncomplete: () => void;
 }
 
-const EditorRow = ({ onComplete, onIncomplete }: EditRowProps) => {
+const EditorRow = ({ onComplete }: EditRowProps) => {
   const [inputText, setInputText] = useState("");
   const [elements, setElements] = useState<Element[]>([]);
   const [isComplete, setIsComplete] = useState(false);
+  const rowContainerRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const keyCode = event.keyCode;
@@ -58,8 +59,17 @@ const EditorRow = ({ onComplete, onIncomplete }: EditRowProps) => {
     setInputText(val);
   }
 
+  const handleRowRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const row: HTMLElement | null = event.currentTarget.parentElement;
+    const rowCount: number = row.parentElement.childNodes.length;
+
+    if (rowCount === 1) return;
+    if (!isComplete) return;
+    row.remove();
+  }
+
   return (
-    <div className="editor-row">
+    <div className="editor-row" ref={rowContainerRef}>
       {elements.map((el, idx) => 
         <EditorSmall 
           key={idx}
@@ -76,6 +86,9 @@ const EditorRow = ({ onComplete, onIncomplete }: EditRowProps) => {
         value={inputText}
         disabled={isComplete}
       />
+      <button className="editor-row__btn" type="button" onClick={handleRowRemove}>
+        <MdClear className="editor-row__btn--icon" />
+      </button>
     </div>
   );
 };

@@ -17,6 +17,10 @@ const Header: React.FC = () => {
           path="/editor" 
           text="Editor" 
         />
+        <HeaderNav 
+          path="/signup" 
+          text="Signup" 
+        />
       </div>
     </header>
   );

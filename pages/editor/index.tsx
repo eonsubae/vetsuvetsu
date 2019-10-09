@@ -25,7 +25,6 @@ const Editor: React.FC = () => {
       <EditorRow 
         key={rowCount}
         onComplete={onComplete}
-        onIncomplete={onIncomplete} 
       />
     ]
   );
@@ -50,7 +49,6 @@ const Editor: React.FC = () => {
           <EditorRow 
             key={`editRow-${rowCount}`} 
             onComplete={onComplete} 
-            onIncomplete={onIncomplete} 
           />)
       )
   };
@@ -60,7 +58,13 @@ const Editor: React.FC = () => {
       <section className="editor-container">
         <form className="editor__form" action="http://localhost:3000/api/editor" method="post">
           <label className="editor__form--subject" htmlFor="subject">Subject:&nbsp;&nbsp;
-            <input className="editor__form--subject-input" type="text" name="subject" id="subject" />
+            <input
+              className="editor__form--subject-input" 
+              type="text"
+              name="subject" 
+              id="subject"
+              autoFocus
+            />
           </label>
           <div className="editor__form--row-container">
             {rowEditors}

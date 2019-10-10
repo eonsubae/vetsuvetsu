@@ -2,6 +2,7 @@ import React from 'react';
 import App from 'next/app';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { parseCookies } from 'nookies';
 
 import BaseLayout from '../components/_App/BaseLayout';
 import rootReducer from '../contexts/index';
@@ -20,7 +21,7 @@ class MyApp extends App {
     if (Component.getInitialProps) {
       appProps = await App.getInitialProps(ctx);
     }
-  
+
     return { ...appProps }
   }
 

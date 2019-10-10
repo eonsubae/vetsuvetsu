@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../contexts/index';
@@ -9,6 +9,7 @@ import EditorRow from '../../components/Editor/EditorRow';
 
 const Editor: React.FC = () => {
   const [rowCount, setRowCount] = useState(1);
+  const titleRef = useRef<any>();
   const lastRowDone = useSelector((state: RootState) => state.editor.lastRowDone);
   const dispatch = useDispatch();
 
@@ -28,6 +29,10 @@ const Editor: React.FC = () => {
       />
     ]
   );
+
+  useEffect(() => {
+    titleRef.current.focus();
+  }, []);
 
   useEffect(() => {
     if (lastRowDone) {
@@ -63,7 +68,7 @@ const Editor: React.FC = () => {
               type="text"
               name="subject" 
               id="subject"
-              autoFocus
+              ref={titleRef}
             />
           </label>
           <div className="editor__form--row-container">

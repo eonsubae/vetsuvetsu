@@ -11,10 +11,20 @@ const INITIAL_USER = {
   password: ""
 };
 
+const pwMatched = {
+  border: 'none',
+  borderBottom: '1px solid #333'
+};
+
+const pwUnMatched = {
+  border: '1px solid red'
+};
+
 const Signup = () => {
   const [user, setUser] = useState(INITIAL_USER);
   const [disabled, setDisabled] = useState(true);
   const [confirmPw, setConfirmPw] = useState("");
+  const [isMatched, setIsMatched] = useState(true);
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -36,7 +46,12 @@ const Signup = () => {
 
     try {
       const isMatchedPw = validatePassword(user.password, confirmPw);
-      if (!isMatchedPw) return;
+      if (!isMatchedPw) {
+        setIsMatched(false);
+        return false;
+      } 
+  
+      setIsMatched(true);
       const url = `${baseUrl}/api/signup`;
       const payload = { ...user };
       const response = await axios.post(url, payload);
@@ -85,6 +100,7 @@ const Signup = () => {
               onChange={handleChange} 
               placeholder="Password"
               required
+              style= {isMatched ? pwMatched : pwUnMatched}
             />
           </p>
           <p>
@@ -97,6 +113,7 @@ const Signup = () => {
               required
               value={confirmPw}
               onChange={handleConfirmPwChnage}
+              style= {isMatched ? pwMatched : pwUnMatched}
             />
           </p>
           <button 

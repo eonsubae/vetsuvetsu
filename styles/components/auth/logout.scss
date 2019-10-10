@@ -1,0 +1,9 @@
+@import '../../abstracts/mixins.scss';
+
+.logout-message {
+  @include flexCenter;
+
+  width: 100%;
+  height: 50rem;
+  font-size: 3rem;
+}

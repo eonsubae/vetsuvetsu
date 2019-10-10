@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Router from 'next/router';
 
 import { RootState } from '../../contexts/index';
 import { complete, incomplete } from '../../contexts/editor';
@@ -10,6 +11,7 @@ import EditorRow from '../../components/Editor/EditorRow';
 const Editor: React.FC = () => {
   const [rowCount, setRowCount] = useState(1);
   const titleRef = useRef<any>();
+  const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
   const lastRowDone = useSelector((state: RootState) => state.editor.lastRowDone);
   const dispatch = useDispatch();
 
@@ -31,6 +33,10 @@ const Editor: React.FC = () => {
   );
 
   useEffect(() => {
+    if (!isAuth) {
+      alert('Login is required');
+      Router.push('/login');
+    }
     titleRef.current.focus();
   }, []);
 

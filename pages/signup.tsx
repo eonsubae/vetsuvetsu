@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import '../styles/components/auth/signup.scss';
 import baseUrl from '../utils/baseUrl';
-import { handleLogin } from '../utils/auth';
+import { handleLogin, validatePassword } from '../utils/auth';
 
 const INITIAL_USER = {
   name: "",
@@ -14,10 +14,16 @@ const INITIAL_USER = {
 const Signup = () => {
   const [user, setUser] = useState(INITIAL_USER);
   const [disabled, setDisabled] = useState(true);
+  const [confirmPw, setConfirmPw] = useState("");
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
     setUser(prevState => ({ ...prevState, [name]: value }));
+  }
+
+  const handleConfirmPwChnage = (event: any) => {
+    const { value } = event.target;
+    setConfirmPw(value);
   }
 
   useEffect(() => {
@@ -29,7 +35,9 @@ const Signup = () => {
     event.preventDefault();
 
     try {
-      const url = `${baseUrl}/api/singup`;
+      const isMatchedPw = validatePassword(user.password, confirmPw);
+      if (!isMatchedPw) return;
+      const url = `${baseUrl}/api/signup`;
       const payload = { ...user };
       const response = await axios.post(url, payload);
       handleLogin(response.data);
@@ -81,11 +89,14 @@ const Signup = () => {
           </p>
           <p>
             <input
-              className="signup__form--confirm-password" 
-              id="confirm-password"
+              className="signup__form--confirm-password"
+              name="confirmpw"
+              id="confirmpw"
               type="password"
               placeholder="Confirm password"
               required
+              value={confirmPw}
+              onChange={handleConfirmPwChnage}
             />
           </p>
           <button 

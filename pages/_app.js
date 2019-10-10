@@ -20,18 +20,18 @@ class MyApp extends App {
     if (Component.getInitialProps) {
       appProps = await App.getInitialProps(ctx);
     }
-  
+
     return { ...appProps }
   }
 
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <BaseLayout>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </BaseLayout>
+      <Provider store={store}>
+        <BaseLayout>
+            <Component {...pageProps} />
+        </BaseLayout>
+      </Provider>
     );
   }
 }

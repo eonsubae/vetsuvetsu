@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
+
+import auth from './auth';
 import editor from './editor';
 
 const rootReducer = combineReducers({
-  editor
+  editor,
+  auth
 });
 
 export default rootReducer;

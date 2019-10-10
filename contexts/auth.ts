@@ -1,23 +1,29 @@
 import cookie from 'js-cookie';
 
-const ISAUTHENTICATED = 'auth/ISAUTHENTICATED' as const;
+const CHECKAUTH = 'auth/CHECKAUTH' as const;
 
-export const isAuthenticated = () => ({ type: ISAUTHENTICATED });
+export const checkAuth = () => ({ type: CHECKAUTH });
 
 type AuthAction = 
-  | ReturnType<typeof isAuthenticated>;
+  | ReturnType<typeof checkAuth>;
 
 type AuthState = {
   isAuthenticated: boolean
 };
 
+const setInitialState = () => {
+  const token = cookie.get('token');
+  if (token) return true;
+  return false;
+}
+
 const initialState: AuthState = {
-  isAuthenticated: false
+  isAuthenticated: setInitialState()
 };
 
 function editor(state: AuthState = initialState, action: AuthAction) {
   switch(action.type) {
-    case 'auth/ISAUTHENTICATED':
+    case 'auth/CHECKAUTH':
       const token = cookie.get('token');
       if (token) {
         return { isAuthenticated : true };

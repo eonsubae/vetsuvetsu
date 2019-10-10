@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import cookie from 'js-cookie';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-import { isAuthenticated } from '../contexts/auth';
+import { RootState } from '../contexts/index';
+import { checkAuth } from '../contexts/auth';
 import '../styles/components/auth/login.scss';
 import baseUrl from '../utils/baseUrl';
 import { handleLogin } from '../utils/auth';
@@ -17,6 +17,7 @@ const USER = {
 const Login = () => {
   const [user, setUser] = useState(USER);
   const [disabled, setDisabled] = useState(true);
+  const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -33,16 +34,14 @@ const Login = () => {
       const payload = { ...user };
       const response = await axios.post(url, payload);
       handleLogin(response.data);
-      dispatch(isAuthenticated());
+      dispatch(checkAuth());
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    const token = cookie.get('token');
-    if (token) {
-      dispatch(isAuthenticated());
+    if (isAuth) {
       router.push('/account');
     }
   }, []);

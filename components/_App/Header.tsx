@@ -1,18 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import cookie from 'js-cookie';
+import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '../../contexts/index';
 import '../../styles/components/header/header.scss';
 import Logo from '../Header/Logo';
 import HeaderNav from '../Header/HeaderNav';
 
 const Header: React.FC = () => {
-  const [isAuth, setIsAuth] = useState(null);
-
-  useEffect(() => {
-    const token = cookie.get('token');
-    if (token) setIsAuth(true);
-    else setIsAuth(false);
-  }, []);
+  const auth = useSelector((state: RootState) => state.auth.isAuthenticated);
 
   return (
     <header className="main-header">
@@ -26,7 +21,7 @@ const Header: React.FC = () => {
           path="/editor" 
           text="Editor" 
         />
-        {isAuth ?
+        {auth ?
           (
             <Fragment>
               <HeaderNav 

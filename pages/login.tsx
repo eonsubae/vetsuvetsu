@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import cookie from 'js-cookie';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
+import { isAuthenticated } from '../contexts/auth';
 import '../styles/components/auth/login.scss';
 import baseUrl from '../utils/baseUrl';
-import axios from 'axios';
 import { handleLogin } from '../utils/auth';
-import { useRouter } from 'next/router';
 
 const USER = {
   email: "",
@@ -15,6 +17,7 @@ const USER = {
 const Login = () => {
   const [user, setUser] = useState(USER);
   const [disabled, setDisabled] = useState(true);
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleChange = (event: any) => {
@@ -30,6 +33,7 @@ const Login = () => {
       const payload = { ...user };
       const response = await axios.post(url, payload);
       handleLogin(response.data);
+      dispatch(isAuthenticated());
     } catch (error) {
       console.error(error);
     }
@@ -38,6 +42,7 @@ const Login = () => {
   useEffect(() => {
     const token = cookie.get('token');
     if (token) {
+      dispatch(isAuthenticated());
       router.push('/account');
     }
   }, []);

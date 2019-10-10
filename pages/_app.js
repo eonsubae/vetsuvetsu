@@ -2,7 +2,6 @@ import React from 'react';
 import App from 'next/app';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { parseCookies } from 'nookies';
 
 import BaseLayout from '../components/_App/BaseLayout';
 import rootReducer from '../contexts/index';
@@ -28,11 +27,11 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <BaseLayout>
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </BaseLayout>
+      <Provider store={store}>
+        <BaseLayout>
+            <Component {...pageProps} />
+        </BaseLayout>
+      </Provider>
     );
   }
 }

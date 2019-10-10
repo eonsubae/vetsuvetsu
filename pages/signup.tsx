@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import '../styles/components/auth/signup.scss';
+import baseUrl from '../utils/baseUrl';
+import { handleLogin } from '../utils/auth';
 
 const INITIAL_USER = {
   name: "",
@@ -17,10 +20,28 @@ const Signup = () => {
     setUser(prevState => ({ ...prevState, [name]: value }));
   }
 
+  useEffect(() => {
+    const isUser = Object.values(user).every(value => Boolean(value));
+    isUser ? setDisabled(false) : setDisabled(true);
+  }, [user]);
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    try {
+      const url = `${baseUrl}/api/singup`;
+      const payload = { ...user };
+      const response = await axios.post(url, payload);
+      handleLogin(response.data);
+    } catch (error) {
+      console.log('Error occured : ', error);
+    }
+  }
+
   return (
     <div className="signup">
       <div className="signup-form-container">
-        <form className="signup__form">
+        <form className="signup__form" onSubmit={handleSubmit}>
           <legend className="signup__form--title">Account Information</legend>
           <p>
             <input
@@ -60,10 +81,10 @@ const Signup = () => {
           </p>
           <p>
             <input
-              className="signup__form--re-password" 
-              id="re-password"
+              className="signup__form--confirm-password" 
+              id="confirm-password"
               type="password"
-              placeholder="Re-Password"
+              placeholder="Confirm password"
               required
             />
           </p>

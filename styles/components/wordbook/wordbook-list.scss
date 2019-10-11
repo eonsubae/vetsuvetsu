@@ -4,7 +4,7 @@
 .wordbook-list {
   margin-top: 3rem;
   width: 90rem;
-  height: 60rem;
+  height: 100%;
   border-bottom: 1px solid $main-black;
   border-top: 2px solid $wordbook-list-border-top-color;
 
@@ -41,4 +41,14 @@
       }
     }
   }
+
+  &__wordbook {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid darkcyan;
+  }
+}
+
+.list-container {
+  border: 1px solid darkgoldenrod;
 }

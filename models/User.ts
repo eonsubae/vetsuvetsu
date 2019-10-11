@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const { String } = mongoose.Schema.Types;
+const { String, ObjectId } = mongoose.Schema.Types;
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -22,6 +22,17 @@ const UserSchema = new mongoose.Schema({
     required: true,
     default: 'student',
     enum: ['student', 'admin', 'teacher']
+  },
+  wordbooks: {
+    lists: [
+      {
+        wordbookId: {
+          type: ObjectId,
+          ref: 'Wordbook',
+          required: true
+        }
+      }
+    ]
   }
 }, {
   timestamps: true

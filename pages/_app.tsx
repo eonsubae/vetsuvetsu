@@ -1,5 +1,5 @@
 import React from 'react';
-import App from 'next/app';
+import NextApp, { AppContext } from "next/app";
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -8,28 +8,34 @@ import rootReducer from '../contexts/index';
 
 const store = createStore(rootReducer);
 
-class MyApp extends App {
+interface Props {
+  pageProps: any;
+}
+
+class MyApp extends NextApp<Props> {
   // Only uncomment this method if you have blocking data requirements for
   // every single page in your application. This disables the ability to
   // perform automatic static optimization, causing every page in your app to
   // be server-side rendered.
   //
-  static async getInitialProps({ Component, ctx }) {
-    let appProps;
 
-    if (Component.getInitialProps) {
-      appProps = await App.getInitialProps(ctx);
-    }
+  static async getInitialProps({ Component, ctx }: AppContext) {
+    const componentGetInitialProps = Component.getInitialProps || (() => Promise.resolve());
 
-    return { ...appProps }
+    const [pageProps] = await Promise.all([
+      componentGetInitialProps(ctx),
+    ]);
+
+    return { pageProps };
   }
 
   render() {
     const { Component, pageProps } = this.props;
+
     return (
       <Provider store={store}>
         <BaseLayout>
-            <Component {...pageProps} />
+          <Component {...pageProps} />
         </BaseLayout>
       </Provider>
     );

@@ -3,11 +3,20 @@ import React from 'react';
 import WordbookListHeader from './WordbookListHeader';
 import '../../styles/components/wordbook/wordbook-list.scss';
 
-const WordbookList: React.FC = () => {
+const WordbookList = ({ wordbooks }) => {
   return (
-    <section className="wordbook-list">
+    <main className="wordbook-list">
       <WordbookListHeader />
-    </section>
+      <section className="list-container">
+        {wordbooks.map((ele, idx) => 
+          <article className="wordbook-list__wordbook" key={idx}>
+            <div>{ele.subject} </div>
+            <div>{ele.user.name}</div>
+            <div>{ele.createdAt}</div>
+          </article>
+        )}
+      </section>
+    </main>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import axios from 'axios';
 
 import { RootState } from '../contexts/index';
@@ -53,6 +54,9 @@ const Login = () => {
 
   return (
     <div className="login">
+      <Head>
+        <title>Vetsu X 2 - Login</title>
+      </Head>
       <div className="login-form-container">
         <form className="login__form" onSubmit={handleSubmit}>
           <legend className="login__form--title">Account Information</legend>

@@ -1,7 +1,13 @@
+import Head from 'next/head';
 
 const Account = () => {
   return (
-    <div>Account</div>
+    <div>
+      <Head>
+        <title>Vetsu X 2 - Account</title>
+      </Head>
+      Account
+    </div>
   );
 };
 

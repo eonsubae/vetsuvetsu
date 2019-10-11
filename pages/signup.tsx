@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Head from 'next/head';
 
 import '../styles/components/auth/signup.scss';
 import baseUrl from '../utils/baseUrl';
@@ -63,6 +64,9 @@ const Signup = () => {
 
   return (
     <div className="signup">
+      <Head>
+        <title>Vetsu X 2 - Signup</title>
+      </Head>
       <div className="signup-form-container">
         <form className="signup__form" onSubmit={handleSubmit}>
           <legend className="signup__form--title">Account Information</legend>

@@ -64,10 +64,18 @@ const Editor: React.FC = () => {
       )
   };
 
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    const { subject, content } = event.target;
+    console.log('subject : ', subject.value);
+    content.forEach(c => console.log(c));
+  }
+
   return (
     <main className="editor">
       <section className="editor-container">
-        <form className="editor__form" action="http://localhost:3000/api/editor" method="post">
+        <form className="editor__form" onSubmit={handleSubmit}>
           <label className="editor__form--subject" htmlFor="subject">Subject:&nbsp;&nbsp;
             <input
               className="editor__form--subject-input" 
@@ -80,6 +88,9 @@ const Editor: React.FC = () => {
           <div className="editor__form--row-container">
             {rowEditors}
           </div>
+          <button className="editor__form--submit-btn" type="submit">
+            Create a wordbook
+          </button>
         </form>
       </section>
     </main>

@@ -1,4 +1,5 @@
 @import '../../abstracts/mixins.scss';
+@import '../../abstracts/variables.scss';
 
 .main-header {
   @include flexCenter;
@@ -6,7 +7,7 @@
   justify-content: flex-start;
   width: 100%;
   height: 9rem;
-  background: #333;
+  background: $main-black;
 }
 
 .navs-container {

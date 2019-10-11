@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
+import Head from 'next/head';
 import _ from 'lodash';
 import axios from 'axios';
 import cookie from 'js-cookie';
@@ -125,6 +126,9 @@ const Editor: React.FC = () => {
 
   return (
     <main className="editor">
+      <Head>
+        <title>Vetsu X 2 - editor</title>
+      </Head>
       <section className="editor-container">
         <form className="editor__form" onSubmit={handleSubmit}>
           <label className="editor__form--subject" htmlFor="subject">Subject:&nbsp;&nbsp;

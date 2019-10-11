@@ -1,12 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
+import _ from 'lodash';
+import axios from 'axios';
+import cookie from 'js-cookie';
 
 import { RootState } from '../../contexts/index';
 import { complete, incomplete } from '../../contexts/editor';
 
 import '../../styles/components/editor/editor.scss';
 import EditorRow from '../../components/Editor/EditorRow';
+import baseUrl from '../../utils/baseUrl';
+
+type WordGroup = {
+  kanji: string;
+  read: string;
+  meaning: string;
+};
 
 const Editor: React.FC = () => {
   const [rowCount, setRowCount] = useState(1);
@@ -68,8 +78,49 @@ const Editor: React.FC = () => {
     event.preventDefault();
 
     const { subject, content } = event.target;
-    console.log('subject : ', subject.value);
-    content.forEach(c => console.log(c));
+    let group: WordGroup = { kanji: "", read: "", meaning: "" };
+    const words: WordGroup[] = [];
+
+    // 3개 단위로 단어를 그룹화한다
+    // 그룹화 형식은 { kanji : 한자, read : 요미카타, meaning : 의미}으로 한다
+    _.forEach((content), (ele, i) => {
+      const count = i + 1;
+      const groupCount = count % 3;
+      
+      if (groupCount === 1) {
+        group.kanji = ele.value;
+      } else if (groupCount === 2) {
+        group.read = ele.value;
+      } else if (groupCount === 0) {
+        group.meaning = ele.value;
+        // 그룹화가 끝나면 하나의 배열에 넣는다
+        words.push(group);
+        group = { kanji: "", read: "", meaning: "" };
+      };
+    });
+
+    // Wordbook 모델에 전송할 subject, words, userId를 오브젝트에 넣는다
+    const url = `${baseUrl}/api/user`;
+    const token = cookie.get('token');
+    const headers = { headers: { authorization: token } };
+    const user = await axios.get(url, headers);
+    const userId = user.data._id;
+    const wordbook = {
+      subject : subject.value,
+      words,
+      userId
+    };
+
+    // Wordbook을 생성하는 api를 호출한다
+    const wordbookUrl = `${baseUrl}/api/wordbook`;
+    const payload = wordbook;
+    const newWordbook = await axios.post(wordbookUrl, payload);
+
+    if (newWordbook.status === 200) {
+      Router.push('/wordbook');
+    } else if (newWordbook.status === 400) {
+      console.log('Error occured : ', newWordbook.status, newWordbook.statusText);
+    }
   }
 
   return (

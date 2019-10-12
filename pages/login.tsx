@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import axios from 'axios';
+import cookie from 'js-cookie';
 
 import { RootState } from '../contexts/index';
 import { checkAuth } from '../contexts/auth';
@@ -43,7 +44,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuth) {
-      router.push('/account');
+      cookie.remove('token');
     }
   }, []);
 

@@ -43,9 +43,32 @@
   }
 
   &__wordbook {
+    @include flexCenter;
+
     width: 100%;
     height: 100%;
     border-bottom: 1px solid darkcyan;
+
+    &--subject {
+      width: 70%;
+      height: 4rem;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    &--user {
+      width: 10%;
+      height: 4rem;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    &--createdAt {
+      width: 20%;
+      height: 4rem;
+      text-align: center;
+      font-size: 2rem;
+    }
   }
 }
 

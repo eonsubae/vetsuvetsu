@@ -45,6 +45,7 @@ const Login = () => {
   useEffect(() => {
     if (isAuth) {
       cookie.remove('token');
+      dispatch(checkAuth());
     }
   }, []);
 

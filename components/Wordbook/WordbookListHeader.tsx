@@ -6,7 +6,7 @@ const WordbookListHeader: React.FC = () => {
   return (
     <header className="wordbook-list__header">
       <div className="wordbook-list__header--title">
-        <h2 className="wordbook-list__header--title-text">All Tasks</h2>
+        <h2 className="wordbook-list__header--title-text">Wordbook List</h2>
       </div>
     </header>
   );

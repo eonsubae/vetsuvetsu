@@ -1,22 +1,19 @@
-import React from 'react';
-
 import WordbookListHeader from './WordbookListHeader';
-import formatKr from '../../utils/date';
+import WordbookListDetail from './WordbookListDetail';
+import WordbookListPaginator from './WordbookListPaginator';
 import '../../styles/components/wordbook/wordbook-list.scss';
 
-const WordbookList = ({ wordbooks }) => {
+const WordbookList = ({ wordbooks, totalPage }) => {
+  
   return (
     <main className="wordbook-list">
       <WordbookListHeader />
       <section className="list-container">
-        {wordbooks.map((ele, idx) => 
-          <article className="wordbook-list__wordbook" key={idx}>
-            <div className="wordbook-list__wordbook--subject">{ele.subject} </div>
-            <div className="wordbook-list__wordbook--user">{ele.user.name}</div>
-            <div className="wordbook-list__wordbook--createdAt">{formatKr(ele.createdAt)}</div>
-          </article>
+        {wordbooks.map(wordbook => 
+          <WordbookListDetail key={wordbook._id} wordbook={wordbook} />
         )}
       </section>
+      <WordbookListPaginator totalPage={totalPage} />
     </main>
   );
 };

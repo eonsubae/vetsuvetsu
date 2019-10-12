@@ -1,0 +1,37 @@
+@import '../../abstracts/mixins.scss';
+
+.wordbook-list__paginator  {
+  @include flexCenter;
+  font-size: 2rem;
+
+  div {
+    margin-left: 2rem;
+  }
+
+  &--first {
+    cursor: pointer;
+  }
+
+  &--left {
+    cursor: pointer;
+  }
+
+  &--current {
+    font-size: 3rem;
+  }
+
+  &--right {
+    cursor: pointer;
+  }
+
+  &--last {
+    cursor: pointer;
+  }
+}
+
+.paginator-container {
+  @include flexCenter;
+
+  width: 30%;
+  height: 4rem;
+}

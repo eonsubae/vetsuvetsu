@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import autoIncrement from 'mongoose-auto-increment';
 
 type Connection = {
   isConnected: any
@@ -19,7 +20,7 @@ const connectDb = async () => {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   });
   console.log("DB Connected");
   connection.isConnected = db.connections[0].readyState;

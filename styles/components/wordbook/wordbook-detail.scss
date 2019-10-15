@@ -5,18 +5,20 @@
 
   position: relative;
   width: 100%;
-  border: 3px solid goldenrod;
   text-align: center;
+
+  &__subject {
+    font-size: 5rem;
+  }
 
   &__toggleBtn {
     @include flexCenter;
     @include absCenter;
 
-    top: 0;
+    top: 5rem;
     transform: translate3d(-50%, 0%, 0);
     justify-content: space-around;
     width: 70rem;
-    border: 2px solid lightcoral;
   }
 
   &__word {
@@ -24,10 +26,8 @@
 
     width: 70rem;
     height: 5rem;
-    border: 3px solid cornflowerblue;
 
     span {
-      border: 2px solid crimson;
       display: inline-block;
       width: 33.333%;
       height: 100%;
@@ -47,7 +47,6 @@
 
 .word-list-container {
   margin-top: 10rem;
-  border: 3px solid maroon;
 }
 
 .checkbox-switch {

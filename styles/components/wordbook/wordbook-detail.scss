@@ -1,0 +1,107 @@
+@import '../../abstracts/mixins.scss';
+
+.wordbook-detail {
+  @include flexCenter;
+
+  position: relative;
+  width: 100%;
+  border: 3px solid goldenrod;
+  text-align: center;
+
+  &__toggleBtn {
+    @include flexCenter;
+    @include absCenter;
+
+    top: 0;
+    transform: translate3d(-50%, 0%, 0);
+    justify-content: space-around;
+    width: 70rem;
+    border: 2px solid lightcoral;
+  }
+
+  &__word {
+    @include flexCenter;
+
+    width: 70rem;
+    height: 5rem;
+    border: 3px solid cornflowerblue;
+
+    span {
+      border: 2px solid crimson;
+      display: inline-block;
+      width: 33.333%;
+      height: 100%;
+      font-size: 2rem;
+    }
+
+    &--kanji {
+    }
+
+    &--yomikata {
+    }
+
+    &--meaning {
+    }
+  }
+}
+
+.word-list-container {
+  margin-top: 10rem;
+  border: 3px solid maroon;
+}
+
+.checkbox-switch {
+  position: relative;
+  text-align: center;
+
+  &__input {
+      display: none;
+  }
+
+  &__label {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+      margin-top: 5rem;
+      width: 8rem;
+      height: 3rem;
+      border-radius: 1.5rem;
+      background-color: cadetblue;
+
+      &::before {
+          position: absolute;
+          top: .6rem;
+          left: .5rem;
+          font-size: 1.2rem;
+          display: inline-block;
+          content: 'ON';
+          color: white;
+      }
+
+      &::after {
+          position: absolute;
+          top: .6rem;
+          right: .5rem;
+          font-size: 1.2rem;
+          display: inline-block;
+          content: 'OFF';
+          color: white;
+      }
+  }
+
+  &__btn {
+      position: absolute;
+      top: .25rem;
+      right: .3rem;
+      display: inline-block;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 2.5rem;
+      background-color: #fff;
+      transition: all .5s ease-out;
+  }
+
+  &__input:checked ~ &__label &__btn {
+      right: 5.3rem;
+  }
+}

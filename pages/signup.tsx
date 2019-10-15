@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Head from 'next/head';
+import Router from 'next/router';
 
 import '../styles/components/auth/signup.scss';
 import baseUrl from '../utils/baseUrl';
-import { handleLogin, validatePassword } from '../utils/auth';
+import { validatePassword } from '../utils/auth';
 
 const INITIAL_USER = {
   name: "",
@@ -55,8 +56,8 @@ const Signup = () => {
       setIsMatched(true);
       const url = `${baseUrl}/api/signup`;
       const payload = { ...user };
-      const response = await axios.post(url, payload);
-      handleLogin(response.data);
+      await axios.post(url, payload);
+      Router.push('/login');
     } catch (error) {
       console.log('Error occured : ', error);
     }

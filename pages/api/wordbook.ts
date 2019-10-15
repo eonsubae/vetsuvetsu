@@ -7,7 +7,6 @@ const { ObjectId } = mongoose.Types;
 connectDb();
 
 export default async (req, res) => {
-
   switch (req.method) {
     case "GET":
       handleGetRequest(req, res);

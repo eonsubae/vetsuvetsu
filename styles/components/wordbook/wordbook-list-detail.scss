@@ -10,7 +10,9 @@
     border-bottom: 1px solid darkcyan;
 
     &--subject {
-      width: 70%;
+      @include flexCenter;
+      
+      width: 60%;
       height: 4rem;
       text-align: center;
       font-size: 2rem;
@@ -18,17 +20,21 @@
     }
 
     &--user {
-      width: 10%;
-      height: 4rem;
-      text-align: center;
-      font-size: 2rem;
-    }
+      @include flexCenter;
 
-    &--createdAt {
       width: 20%;
       height: 4rem;
       text-align: center;
-      font-size: 2rem;
+      font-size: 1.5rem;
+    }
+
+    &--createdAt {
+      @include flexCenter;
+
+      width: 20%;
+      height: 4rem;
+      text-align: center;
+      font-size: 1.5rem;
     }
   }
 }

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import axios from "axios";
 
-import baseUrl from "../../utils/baseUrl";
-import '../../styles/components/wordbook/wordbook-detail.scss';
+import baseUrl from "../../../utils/baseUrl";
+import '../../../styles/components/wordbook/wordbook-detail.scss';
 
 const WordbookDetail = ({ wordbook }) => {
   const [kanjiToggle, setKanjiToggle] = useState(true);
@@ -42,10 +43,22 @@ const WordbookDetail = ({ wordbook }) => {
     else if (!isFixedToggleBtn && (pos < 150)) {
       setIsFixedToggleBtn(false);
     }
-  }
+  };
+
+  // const handlePdf = () => {
+  //   const PdfApp = () => (
+  //     <PDFViewer>
+  //       <WordbookPdf />
+  //     </PDFViewer>
+  //   )
+  //   ReactDOM.render(<PdfApp />, document.querySelector('.test-pdf'));
+  // };
 
   return (
     <main className="wordbook-detail">
+      <Head>
+        <title>Vetsu X 2 - {wordbook.subject}</title>
+      </Head>
       <section className="wordbook-detail__container">
         <article>
           <h1 className="wordbook-detail__subject">{wordbook.subject}</h1>

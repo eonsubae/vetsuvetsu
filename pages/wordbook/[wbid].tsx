@@ -8,14 +8,12 @@ const WordbookDetail = ({ wordbook }) => {
   const [kanjiToggle, setKanjiToggle] = useState(true);
   const [yomiToggle, setYomiToggle] = useState(true);
   const [meanToggle, setMeanToggle] = useState(true);
-  // 한자, 요미카타, 의미 전체를 보이게/안보이게 할 수 있는 토글 버튼을 만든다
-  // 각각의 토글 버튼 아래에 한자, 요미카타, 의미를 리스팅한다
-  // 토글버튼을 누르면 해당 토글버튼 아래의 리스트들은 보이지 않게끔 기능을 만든다
+  const [isFixedToggleBtn, setIsFixedToggleBtn] = useState(false);
   // 단어 한개만 클릭할 시 상단 토글버튼과 상관없이 볼 수 있게/볼 수 없게끔 개별 단어의 토글 기능을 만든다
 
   useEffect(() => {
-    console.log(kanjiToggle);
-  }, [kanjiToggle]);
+    window.addEventListener('scroll', handleToggleBtnPosition);
+  }, []);
 
   const handleToggleChange = (event: any) => {
     const btn = event.target;
@@ -33,6 +31,17 @@ const WordbookDetail = ({ wordbook }) => {
       if (target === yomikata) setYomiToggle(false); 
       if (target === meaning) setMeanToggle(false); 
     }
+  };
+
+  const handleToggleBtnPosition = () => {
+    const pos = window.pageYOffset;
+
+    if (!isFixedToggleBtn && (pos > 150)) {
+      setIsFixedToggleBtn(true);
+    } 
+    else if (!isFixedToggleBtn && (pos < 150)) {
+      setIsFixedToggleBtn(false);
+    }
   }
 
   return (
@@ -41,7 +50,13 @@ const WordbookDetail = ({ wordbook }) => {
         <article>
           <h1 className="wordbook-detail__subject">{wordbook.subject}</h1>
         </article>
-        <article className="wordbook-detail__toggleBtn">
+        <article 
+          className="wordbook-detail__toggleBtn" 
+          style={isFixedToggleBtn ? 
+            { position: 'fixed', top: '-3rem' } : 
+            { position: 'absolute', top: '5rem' } 
+          }
+        >
           <div className="wordbook-detail__toggleBtn__kanji">
             <input 
               checked={kanjiToggle}

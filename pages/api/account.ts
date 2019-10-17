@@ -14,7 +14,7 @@ export default async (req, res) => {
     const pageNum = Number(page);
     const pageSize = Number(size);
     let wordbooks = [];
-    const totalWordbookCount = await Wordbook.countDocuments();
+    const totalWordbookCount = await Wordbook.find({ user: userId }).countDocuments();
     const totalPage = Math.ceil(totalWordbookCount / pageSize);
   
     if (pageNum === 1) {

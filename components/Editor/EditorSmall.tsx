@@ -20,10 +20,12 @@ const EditorSmall = (el: SmallElement) => {
   }, [useEdit]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
     const keyCode = event.keyCode;
     let trimmedText;
+    const isFinishedInput = (keyCode === 20 || keyCode === 32) ? true : false;
 
-    if (keyCode !== 32) {
+    if (!isFinishedInput) {
       return;
     }
     

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import Head from 'next/head';
-import _ from 'lodash';
 import axios from 'axios';
 import cookie from 'js-cookie';
 
@@ -84,7 +83,7 @@ const Editor: React.FC = () => {
 
     // 3개 단위로 단어를 그룹화한다
     // 그룹화 형식은 { kanji : 한자, read : 요미카타, meaning : 의미}으로 한다
-    _.forEach((content), (ele, i) => {
+    content.forEach((ele, i) => {
       const count = i + 1;
       const groupCount = count % 3;
       

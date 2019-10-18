@@ -20,13 +20,16 @@ const EditorRow = ({ onComplete }: EditRowProps) => {
   const rowContainerRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
     const keyCode = event.keyCode;
     let trimmedText;
+    const isFinishedInput = (keyCode === 20 || keyCode === 32) ? true : false;
 
     // 스페이스를 입력할때까지 리턴한다
-    if (keyCode !== 32) {
+    if (!isFinishedInput) {
       return;
     }
+
     // 스페이스가 입력되면 이전까지 입력된 문자열을 trim한 결과를 캐싱한다
     trimmedText = inputText.trim();
     // trim한 결과 아무것도 입력되지 않았다면 input창을 초기화한다
@@ -80,7 +83,7 @@ const EditorRow = ({ onComplete }: EditRowProps) => {
         autoFocus
         className="editor-row__input"
         type="text" 
-        onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyDown}
         onChange={handleTextInput}
         value={inputText}
         disabled={isComplete}

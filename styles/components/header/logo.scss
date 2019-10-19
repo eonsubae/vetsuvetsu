@@ -1,8 +1,15 @@
+@import '../../abstracts/mixins.scss';
+
 .main-header {
 
   &__logo {
     width: 8rem;
     height: 8rem;
+
+    @include respond(phone) {
+      width: 7rem;
+      height: 7rem;
+    }
   }
 }
 

@@ -4,9 +4,9 @@ import jwt from 'jsonwebtoken';
 import connectDb from '../../utils/connectDb';
 import User from '../../models/User';
 
-connectDb();
 
 export default async (req, res) => {
+  connectDb();
   const { email, password } = req.body;
   try {
     // 이미 있는 이메일인지 확인

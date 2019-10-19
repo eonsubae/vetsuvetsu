@@ -1,9 +1,8 @@
 import Wordbook from '../../../models/Wordbook';
 import connectDb from '../../../utils/connectDb';
 
-connectDb();
-
 export default (req, res) => {
+  connectDb();
   switch (req.method) {
     case 'GET':
       handleGetRequest(req, res);

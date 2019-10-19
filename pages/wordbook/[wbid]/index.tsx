@@ -45,15 +45,6 @@ const WordbookDetail = ({ wordbook }) => {
     }
   };
 
-  // const handlePdf = () => {
-  //   const PdfApp = () => (
-  //     <PDFViewer>
-  //       <WordbookPdf />
-  //     </PDFViewer>
-  //   )
-  //   ReactDOM.render(<PdfApp />, document.querySelector('.test-pdf'));
-  // };
-
   return (
     <main className="wordbook-detail">
       <Head>
@@ -77,7 +68,11 @@ const WordbookDetail = ({ wordbook }) => {
               className="checkbox-switch__input" 
               id="checkbox-switch-kanji" 
               onChange={handleToggleChange} />
-            <label htmlFor="checkbox-switch-kanji" className="checkbox-switch__label">
+            <label 
+              htmlFor="checkbox-switch-kanji" 
+              className="checkbox-switch__label"
+              style={kanjiToggle ? { backgroundColor : 'cadetblue' } : { backgroundColor : 'grey' }}
+            >
               <span className="checkbox-switch__btn"></span>
             </label>
           </div>
@@ -89,7 +84,11 @@ const WordbookDetail = ({ wordbook }) => {
               id="checkbox-switch-yomikata" 
               onChange={handleToggleChange} 
             />
-            <label htmlFor="checkbox-switch-yomikata" className="checkbox-switch__label">
+            <label 
+              htmlFor="checkbox-switch-yomikata" 
+              className="checkbox-switch__label"
+              style={yomiToggle ? { backgroundColor : 'cadetblue' } : { backgroundColor : 'grey' }}
+            >
               <span className="checkbox-switch__btn"></span>
             </label>
           </div>
@@ -101,7 +100,11 @@ const WordbookDetail = ({ wordbook }) => {
               id="checkbox-switch-meaning" 
               onChange={handleToggleChange} 
             />
-            <label htmlFor="checkbox-switch-meaning" className="checkbox-switch__label">
+            <label 
+              htmlFor="checkbox-switch-meaning" 
+              className="checkbox-switch__label"
+              style={meanToggle ? { backgroundColor : 'cadetblue' } : { backgroundColor : 'grey' }}
+            >
               <span className="checkbox-switch__btn"></span>
             </label>
           </div>

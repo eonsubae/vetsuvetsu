@@ -15,6 +15,10 @@
     height: 8rem;
     border-bottom: 1px solid $main-black;
 
+    @include respond(phone) {
+      height: 5rem;
+    }
+
     &--title {
       @include flexCenter;
 

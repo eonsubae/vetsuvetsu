@@ -17,6 +17,11 @@
       text-align: center;
       font-size: 2rem;
       cursor: pointer;
+
+      @include respond(phone) {
+        width: 60%;
+        font-size: 1.6rem;
+      }
     }
 
     &--user {
@@ -26,6 +31,11 @@
       height: 4rem;
       text-align: center;
       font-size: 1.5rem;
+
+      @include respond(phone) {
+        width: 10%;
+        font-size: 1.2rem;
+      }
     }
 
     &--createdAt {
@@ -35,6 +45,11 @@
       height: 4rem;
       text-align: center;
       font-size: 1.5rem;
+
+      @include respond(phone) {
+        width: 30%;
+        font-size: 1.2rem;
+      }
     }
   }
 }

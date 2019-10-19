@@ -1,8 +1,13 @@
 @import '../../abstracts/mixins.scss';
+@import '../../abstracts/mixins.scss';
 
 .wordbook-list-container {
   @include flexCenter;
 
   width: 100%;
   height: 100%;
+
+  @include respond(phone) {
+    margin-top: 5rem;
+  }
 }

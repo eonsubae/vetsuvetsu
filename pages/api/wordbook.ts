@@ -36,7 +36,8 @@ const handleGetRequest = async (req, res) => {
                             path: 'user',
                             model: 'User'
                           })
-                          .limit(pageSize);
+                          .limit(pageSize)
+                          .sort({ createdAt: 'desc' });
     } else {
       const skips = pageSize * (pageNum - 1);
       wordbooks = await Wordbook
@@ -46,7 +47,8 @@ const handleGetRequest = async (req, res) => {
                             model: 'User'
                           })
                           .skip(skips)
-                          .limit(pageSize);
+                          .limit(pageSize)
+                          .sort({ createdAt: 'desc' });
     }
     res.status(200).send({ wordbooks, totalPage });
   } catch (error) {

@@ -18,7 +18,6 @@ const WordbookListPaginator = ({ totalPage }) => {
   const handlePaginationForList = (event: any) => {
     event.preventDefault();
     const pagetarget = event.target.dataset.pagetarget;
-    console.log(pagetarget);
 
     if (pagetarget === 'first') {
       router.push('/wordbook');
@@ -48,7 +47,6 @@ const WordbookListPaginator = ({ totalPage }) => {
   const handlePaginationForAccount = (event: any) => {
     event.preventDefault();
     const pagetarget = event.target.dataset.pagetarget;
-    console.log(pagetarget);
 
     if (pagetarget === 'first') {
       router.push('/account');

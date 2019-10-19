@@ -17,7 +17,6 @@ class MyApp extends NextApp<Props> {
   // every single page in your application. This disables the ability to
   // perform automatic static optimization, causing every page in your app to
   // be server-side rendered.
-  //
 
   static async getInitialProps({ Component, ctx }: AppContext) {
     const componentGetInitialProps = Component.getInitialProps || (() => Promise.resolve());

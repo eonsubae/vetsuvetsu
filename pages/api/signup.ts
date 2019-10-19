@@ -6,9 +6,9 @@ import isLength from 'validator/lib/isLength';
 import User from '../../models/User';
 import connectDb from '../../utils/connectDb';
 
-connectDb();
 
 export default async (req, res) => {
+  connectDb();
   const { name, email, password } = req.body;
 
   try {

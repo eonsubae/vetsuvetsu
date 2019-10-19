@@ -5,9 +5,9 @@ import connectDb from '../../utils/connectDb';
 import User from '../../models/User';
 
 const { ObjectId } = mongoose.Types;
-connectDb();
 
 export default async (req, res) => {
+  connectDb();
   const { authorization } = req.headers;
   const { userId } = jwt.verify(authorization, process.env.JWT_SECRET);
 

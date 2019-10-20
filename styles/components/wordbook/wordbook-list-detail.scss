@@ -1,6 +1,9 @@
 @import '../../abstracts/mixins.scss';
 
 .wordbook-list {
+  @include respond(phone) {
+    width: 36rem;
+  }
 
   &__wordbook {
     @include flexCenter;

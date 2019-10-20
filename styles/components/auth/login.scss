@@ -9,10 +9,13 @@
     @include flexCenter;
 
     margin-top: 5rem;
+
+    @include respond(phone) {
+      margin-top: 2rem;
+    }
   }
 
   &__form {
-    border: 1px solid seagreen;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -20,6 +23,10 @@
     align-items: center;
     width: 30%;
     height: 40rem;
+    
+    @include respond(phone) {
+      width: 100%;
+    }
 
     &--title {
       font-size: 2rem;
@@ -27,15 +34,19 @@
     }
 
     input {
-      width: 30rem;
+      width: 40rem;
       height: 5rem;
       color: $main-black;
       border: none;
       border-bottom: 1px solid $main-black;
+
+      @include respond(phone) {
+        width: 30rem;
+      }
     }
 
     &--submit-btn {
-      width: 30rem;
+      width: 40rem;
       height: 4rem;
       background-color: #aaf0e3;
       color: $main-black;
@@ -43,6 +54,10 @@
       border-radius: 4px;
       font-size: 1.5rem;
       cursor: pointer;
+
+      @include respond(phone) {
+        width: 30rem;
+      }
 
       &:disabled {
         cursor: not-allowed;

@@ -16,7 +16,6 @@
   }
 
   &__form {
-    // border: 1px solid seagreen;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -27,7 +26,6 @@
 
     @include respond(phone) {
       width: 100%;
-      border: none;
     }
 
     &--title {

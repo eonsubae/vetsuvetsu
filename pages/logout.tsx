@@ -23,7 +23,7 @@ const Logout = () => {
 
   return (
     <div className="logout-message">
-      Please. Waiting for a second. Logout in progress
+      Please. Waiting for a second. Logout in progress...
     </div>
   );
 };

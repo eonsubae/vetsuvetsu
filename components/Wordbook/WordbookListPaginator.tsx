@@ -103,7 +103,7 @@ const WordbookListPaginator = ({ totalPage }) => {
             router.pathname === '/wordbook' ? 
             handlePaginationForList : 
             handlePaginationForAccount} data-pagetarget="last">
-          {totalPage}
+          {totalPage === 0 ? 1 : totalPage}
         </div>
       </div>
     </div>

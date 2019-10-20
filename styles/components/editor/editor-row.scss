@@ -22,6 +22,10 @@
     border: none;
     cursor: pointer;
 
+    @include respond(phone) {
+      width: 3rem;
+    }
+
     &:disabled {
       background-color: $editor-row-button-disabled-color;
       cursor: not-allowed;

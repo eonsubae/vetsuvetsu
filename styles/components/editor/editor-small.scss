@@ -23,11 +23,20 @@
       font-weight: 700;
       color: rgb(96, 110, 134);
       text-align: center;
+
+      @include respond(phone) {
+        width: 3.5rem;
+        font-size: 0.3rem;
+      }
     }
   
     &--value {
       font-size: 1.5rem;
       color: rgb(73, 68, 68);
+
+      @include respond(phone) {
+        font-size: 1rem;
+      }
     }
 
     &--edit {

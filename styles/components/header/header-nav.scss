@@ -20,3 +20,10 @@
     }
   }
 }
+
+.editor {
+
+  @include respond(phone) {
+    display: none;
+  }
+}

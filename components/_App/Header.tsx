@@ -18,6 +18,7 @@ const Header: React.FC = () => {
           text="Wordbook" 
         />
         <HeaderNav 
+          id="editor"
           path="/editor" 
           text="Editor" 
         />

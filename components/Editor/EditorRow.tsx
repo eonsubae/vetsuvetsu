@@ -23,7 +23,7 @@ const EditorRow = ({ onComplete }: EditRowProps) => {
     event.preventDefault();
     const keyCode = event.keyCode;
     let trimmedText;
-    const isFinishedInput = (keyCode === 20 || keyCode === 32) ? true : false;
+    const isFinishedInput = (keyCode === 20) ? true : false;
 
     // 스페이스를 입력할때까지 리턴한다
     if (!isFinishedInput) {

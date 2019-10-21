@@ -119,7 +119,7 @@ const Editor: React.FC = () => {
     if (newWordbook.status === 200) {
       Router.push('/wordbook');
     } else if (newWordbook.status === 400) {
-      console.log('Error occured : ', newWordbook.status, newWordbook.statusText);
+      new Error(`Error occured : ${newWordbook.status}, ${newWordbook.statusText}`);
     }
   }
 

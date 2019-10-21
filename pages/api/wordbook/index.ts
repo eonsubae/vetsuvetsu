@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import Wordbook from '../../models/Wordbook';
-import connectDb from '../../utils/connectDb';
+import Wordbook from '../../../models/Wordbook';
+import connectDb from '../../../utils/connectDb';
 
 const { ObjectId } = mongoose.Types;
 
@@ -29,6 +29,7 @@ const handleGetRequest = async (req, res) => {
     const totalWordbookCount = await Wordbook.countDocuments();
     const totalPage = Math.ceil(totalWordbookCount / pageSize);
   
+    require('../../../models/User');
     if (pageNum === 1) {
       wordbooks = await Wordbook
                           .find()

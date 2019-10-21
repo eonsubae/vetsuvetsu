@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Head from 'next/head';
 import axios from "axios";
+import nookies from 'nookies';
 
 import baseUrl from "../../../utils/baseUrl";
 import '../../../styles/components/wordbook/wordbook-detail.scss';
 
-const WordbookDetail = ({ wordbook }) => {
+const WordbookDetail = ({ wordbook, user }) => {
   const [kanjiToggle, setKanjiToggle] = useState(true);
   const [yomiToggle, setYomiToggle] = useState(true);
   const [meanToggle, setMeanToggle] = useState(true);
@@ -127,17 +129,28 @@ const WordbookDetail = ({ wordbook }) => {
             </div>
           )}
         </article>
-      </section>
+        {wordbook.user === user._id ?
+           (<Link href={`/editor/${wordbook._id}`}>
+             <a className="wordbook-detail__update-btn">Update</a>
+            </Link>) : null}
+        </section>
     </main>
   );
 };
 
 WordbookDetail.getInitialProps = async (ctx: any) => {
   const wordbookId = ctx.query.wbid;
-  const response = await axios.get(`${baseUrl}/api/wordbook/${wordbookId}`);
-  const wordbook = response.data;
+  const token = nookies.get(ctx).token;
+  const userUrl = `${baseUrl}/api/user`;
+  const userPayload = { headers: { Authorization : token }};
+  const userResponse = await axios.get(userUrl, userPayload);
+  const user = userResponse.data;
 
-  return { wordbook };
+  const wordbookUrl = `${baseUrl}/api/wordbook/${wordbookId}`;
+  const wordbookResponse = await axios.get(wordbookUrl);
+  const wordbook = wordbookResponse.data;
+
+  return { wordbook, user };
 };
 
 export default WordbookDetail;

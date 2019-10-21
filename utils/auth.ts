@@ -11,6 +11,6 @@ export function validatePassword(pw, confirmPw) {
     return true;
   }
 
-  console.log('Error : password and confirm password is not matched');
+  console.error('Error : password and confirm password is not matched');
   return false;
 }

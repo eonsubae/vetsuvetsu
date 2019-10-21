@@ -23,7 +23,7 @@ const EditorSmall = (el: SmallElement) => {
     event.preventDefault();
     const keyCode = event.keyCode;
     let trimmedText;
-    const isFinishedInput = (keyCode === 20 || keyCode === 32) ? true : false;
+    const isFinishedInput = (keyCode === 20) ? true : false;
 
     if (!isFinishedInput) {
       return;
@@ -40,8 +40,8 @@ const EditorSmall = (el: SmallElement) => {
   }
 
   const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
     const val = event.target.value;
-    if (val === " ") return;
     setEditedText(val);
   }
 
@@ -56,7 +56,6 @@ const EditorSmall = (el: SmallElement) => {
       </div>
       <label htmlFor="content">
         <input 
-          id={`content-`}
           className="editor-small__input"
           type="text" 
           name="content"
@@ -64,7 +63,7 @@ const EditorSmall = (el: SmallElement) => {
           disabled={!useEdit}
           ref={inputRef}
           onChange={handleTextChange}
-          onKeyDown={handleKeyDown}
+          onKeyUp={handleKeyDown}
         />
       </label>
     </div>

@@ -5,12 +5,13 @@ import Head from 'next/head';
 import axios from 'axios';
 import cookie from 'js-cookie';
 
-import { RootState } from '../../contexts/index';
-import { complete, incomplete } from '../../contexts/editor';
+import { RootState } from '../../../contexts/index';
+import { complete, incomplete } from '../../../contexts/editor';
+import nookies from 'nookies';
 
-import '../../styles/components/editor/editor.scss';
-import EditorRow from '../../components/Editor/EditorRow';
-import baseUrl from '../../utils/baseUrl';
+import '../../../styles/components/editor/editor.scss';
+import EditorRow from '../../../components/Editor/EditorRow';
+import baseUrl from "../../../utils/baseUrl";
 
 type WordGroup = {
   kanji: string;
@@ -18,7 +19,8 @@ type WordGroup = {
   meaning: string;
 };
 
-const Editor: React.FC = () => {
+const EditorForUpdate = ({ wordbook, user }) => {
+  const [subject, setSubject] = useState(wordbook.subject);
   const [rowCount, setRowCount] = useState(1);
   const titleRef = useRef<any>();
   const isAuth = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -46,6 +48,9 @@ const Editor: React.FC = () => {
     if (!isAuth) {
       alert('Login is required');
       Router.push('/login');
+    }
+    if (wordbook.user !== user._id) {
+      Router.push(`/wordbook/${wordbook._id}`);
     }
     titleRef.current.focus();
   }, []);
@@ -77,7 +82,8 @@ const Editor: React.FC = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    const { subject, content } = event.target;
+    const { content, wordbook_id } = event.target;
+    const wordbookId = wordbook_id.value;
     let group: WordGroup = { kanji: "", read: "", meaning: "" };
     const words: WordGroup[] = [];
 
@@ -99,37 +105,42 @@ const Editor: React.FC = () => {
       };
     });
 
-    // Wordbook 모델에 전송할 subject, words, userId를 오브젝트에 넣는다
-    const url = `${baseUrl}/api/user`;
-    const token = cookie.get('token');
-    const headers = { headers: { authorization: token } };
-    const user = await axios.get(url, headers);
-    const userId = user.data._id;
+    // Wordbook 모델에 전송할 subject, words, wordbookId를 오브젝트에 넣는다
     const wordbook = {
-      subject : subject.value,
+      subject : subject,
       words,
-      userId
+      wordbookId
     };
 
-    // Wordbook을 생성하는 api를 호출한다
+    // Wordbook을 수정하는 api를 호출한다
     const wordbookUrl = `${baseUrl}/api/wordbook`;
     const payload = wordbook;
-    const newWordbook = await axios.post(wordbookUrl, payload);
+    const updatedWordbook = await axios.put(wordbookUrl, payload);
 
-    if (newWordbook.status === 200) {
+    if (updatedWordbook.status === 200) {
       Router.push('/wordbook');
-    } else if (newWordbook.status === 400) {
-      new Error(`Error occured : ${newWordbook.status}, ${newWordbook.statusText}`);
+    } else if (updatedWordbook.status === 400) {
+      new Error(`Error occured : ${updatedWordbook.status}, ${updatedWordbook.statusText}`);
     }
-  }
+  };
+
+  const handleChangeSubject = (event: any) => {
+    const val = event.target.value;
+    setSubject(val);
+  };
 
   return (
     <main className="editor">
       <Head>
-        <title>Vetsu X 2 - editor</title>
+        <title>Vetsu X 2 - Update</title>
       </Head>
       <section className="editor-container">
         <form className="editor__form" onSubmit={handleSubmit}>
+          <input 
+            type="hidden"
+            name="wordbook_id"
+            value={wordbook._id}
+          />
           <label className="editor__form--subject" htmlFor="subject">Subject:&nbsp;&nbsp;
             <input
               className="editor__form--subject-input" 
@@ -137,13 +148,24 @@ const Editor: React.FC = () => {
               name="subject" 
               id="subject"
               ref={titleRef}
+              value={subject}
+              onChange={handleChangeSubject}
             />
           </label>
           <div className="editor__form--row-container">
+            {wordbook.words.map((row, idx) => {
+              return (
+                <EditorRow 
+                  key={idx}
+                  row={row}
+                  onComplete={onComplete}
+                />
+              )
+            })}
             {rowEditors}
           </div>
           <button className="editor__form--submit-btn" type="submit">
-            Create a wordbook
+            Update a wordbook
           </button>
         </form>
       </section>
@@ -151,4 +173,19 @@ const Editor: React.FC = () => {
   );
 };
 
-export default Editor;
+EditorForUpdate.getInitialProps = async (ctx: any) => {
+  const wordbookId = ctx.query.wbid;
+  const token = nookies.get(ctx).token;
+  const userUrl = `${baseUrl}/api/user`;
+  const userPayload = { headers: { Authorization : token }};
+  const userResponse = await axios.get(userUrl, userPayload);
+  const user = userResponse.data;
+
+  const wordbookUrl = `${baseUrl}/api/wordbook/${wordbookId}`;
+  const wordbookResponse = await axios.get(wordbookUrl);
+  const wordbook = wordbookResponse.data;
+
+  return { wordbook, user };
+};
+
+export default EditorForUpdate;

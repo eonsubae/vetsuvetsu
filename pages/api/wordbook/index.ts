@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import Wordbook from '../../models/Wordbook';
-import connectDb from '../../utils/connectDb';
+import Wordbook from '../../../models/Wordbook';
+import connectDb from '../../../utils/connectDb';
 
 const { ObjectId } = mongoose.Types;
 
@@ -13,6 +13,9 @@ export default async (req, res) => {
       break;
     case "POST":
       handlePostRequest(req, res);
+      break;
+    case "PUT":
+      handlePutRequest(req, res);
       break;
     default:
       res.status(405).send(`Method ${req.method} not allowed`);
@@ -29,6 +32,7 @@ const handleGetRequest = async (req, res) => {
     const totalWordbookCount = await Wordbook.countDocuments();
     const totalPage = Math.ceil(totalWordbookCount / pageSize);
   
+    require('../../../models/User');
     if (pageNum === 1) {
       wordbooks = await Wordbook
                           .find()
@@ -66,3 +70,16 @@ const handlePostRequest = async (req, res) => {
     console.log(error);
   }
 };
+
+const handlePutRequest = async (req, res) => {
+  const { subject, words, wordbookId } = req.body;
+
+  try {
+    const response = await Wordbook.updateOne({ _id: wordbookId }, { words: words, subject: subject });
+    res.status(200).send(response);
+  } catch (error) {
+    console.error(error);
+  }
+
+
+}

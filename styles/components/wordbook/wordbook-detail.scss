@@ -1,4 +1,5 @@
 @import '../../abstracts/mixins.scss';
+@import '../../abstracts/variables.scss';
 
 .wordbook-detail {
   @include flexCenter;
@@ -42,15 +43,17 @@
       height: 100%;
       font-size: 2rem;
     }
+  }
 
-    &--kanji {
-    }
-
-    &--yomikata {
-    }
-
-    &--meaning {
-    }
+  &__update-btn {
+    display: inline-block;
+    width: 12rem;
+    height: 3rem;
+    font-size: 2rem;
+    text-decoration: none;
+    color: white;
+    background-color: $main-black;
+    border-radius: .5rem;
   }
 }
 

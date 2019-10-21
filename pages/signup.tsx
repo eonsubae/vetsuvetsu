@@ -59,7 +59,7 @@ const Signup = () => {
       await axios.post(url, payload);
       Router.push('/login');
     } catch (error) {
-      console.log('Error occured : ', error);
+      new Error(`Error occured : ${error}`);
     }
   }
 

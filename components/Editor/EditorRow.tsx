@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MdClear } from 'react-icons/md';
 
 import '../../styles/components/editor/editor-row.scss';
@@ -6,20 +6,48 @@ import EditorSmall from './EditorSmall';
 
 type Element = {
   type: string;
-  value: string;
+  value: any;
 };
 
 type EditRowProps = {
   onComplete: () => void;
+  row?: any;
 }
 
-const EditorRow = ({ onComplete }: EditRowProps) => {
+const EditorRow = ({ onComplete, row }: EditRowProps) => {
   const [inputText, setInputText] = useState("");
   const [elements, setElements] = useState<Element[]>([]);
   const [isComplete, setIsComplete] = useState(false);
   const rowContainerRef = useRef<HTMLDivElement>(null);
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (row) {
+      handleSavedWord();
+    }
+  }, []);
+
+  const handleSavedWord = () => {
+    const ele = [];
+    Object.entries(row).forEach(arr => {
+      let type;
+      if (ele.length === 0) type = "漢字";
+      else if (ele.length === 1) type = "読み方";
+      else type = "意味"
+  
+      const element: Element = {
+        type: type,
+        value: arr[1]
+      };
+      ele.push(element);
+  
+      if (ele.length === 3) {
+        setElements(prevState => prevState.concat(ele));
+        setIsComplete(true);
+      }
+    });
+  }
+
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
     event.preventDefault();
     const keyCode = event.keyCode;
     let trimmedText;
@@ -79,15 +107,19 @@ const EditorRow = ({ onComplete }: EditRowProps) => {
           value={el.value}
         />
       )}
-      <input 
-        autoFocus
-        className="editor-row__input"
-        type="text" 
-        onKeyUp={handleKeyDown}
-        onChange={handleTextInput}
-        value={inputText}
-        disabled={isComplete}
-      />
+      {row ? null :
+        (
+          <input 
+            autoFocus
+            className="editor-row__input"
+            type="text" 
+            onKeyUp={handleKeyUp}
+            onChange={handleTextInput}
+            value={inputText}
+            disabled={isComplete}
+          />
+        )
+      }
       <button disabled={!isComplete} className="editor-row__btn" type="button" onClick={handleRowRemove}>
         <MdClear className="editor-row__btn--icon" />
       </button>

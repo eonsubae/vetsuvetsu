@@ -14,6 +14,9 @@ export default async (req, res) => {
     case "POST":
       handlePostRequest(req, res);
       break;
+    case "PUT":
+      handlePutRequest(req, res);
+      break;
     default:
       res.status(405).send(`Method ${req.method} not allowed`);
       break;
@@ -67,3 +70,16 @@ const handlePostRequest = async (req, res) => {
     console.log(error);
   }
 };
+
+const handlePutRequest = async (req, res) => {
+  const { subject, words, wordbookId } = req.body;
+
+  try {
+    const response = await Wordbook.updateOne({ _id: wordbookId }, { words: words, subject: subject });
+    res.status(200).send(response);
+  } catch (error) {
+    console.error(error);
+  }
+
+
+}

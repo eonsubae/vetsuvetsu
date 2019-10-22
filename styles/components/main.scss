@@ -10,6 +10,10 @@
   @include respond(tab-land) {
     height: 100rem;
   }
+
+  @include respond(phone) {
+    height: 50rem;
+  }
 }
 
 .intro {

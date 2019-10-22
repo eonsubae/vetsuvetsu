@@ -129,22 +129,26 @@ const WordbookDetail = ({ wordbook, user }) => {
             </div>
           )}
         </article>
-        {wordbook.user === user._id ?
-           (<Link href={`/editor/${wordbook._id}`}>
-             <a className="wordbook-detail__update-btn">Update</a>
-            </Link>) : null}
+        {(user != null && wordbook.user === user._id) ?
+            (<Link href={`/editor/${wordbook._id}`}>
+              <a className="wordbook-detail__update-btn">Update</a>
+             </Link>) : null}
         </section>
     </main>
   );
 };
 
 WordbookDetail.getInitialProps = async (ctx: any) => {
+  let user;
   const wordbookId = ctx.query.wbid;
   const token = nookies.get(ctx).token;
-  const userUrl = `${baseUrl}/api/user`;
-  const userPayload = { headers: { Authorization : token }};
-  const userResponse = await axios.get(userUrl, userPayload);
-  const user = userResponse.data;
+
+  if (token) {
+    const userUrl = `${baseUrl}/api/user`;
+    const userPayload = { headers: { Authorization : token }};
+    const userResponse = await axios.get(userUrl, userPayload);
+    user = userResponse.data;
+  }
 
   const wordbookUrl = `${baseUrl}/api/wordbook/${wordbookId}`;
   const wordbookResponse = await axios.get(wordbookUrl);

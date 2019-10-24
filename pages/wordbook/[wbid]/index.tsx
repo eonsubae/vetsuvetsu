@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Head from 'next/head';
 import axios from "axios";
@@ -7,11 +8,15 @@ import nookies from 'nookies';
 import baseUrl from "../../../utils/baseUrl";
 import '../../../styles/components/wordbook/wordbook-detail.scss';
 
+const WordbookConvertToCanvas
+  = dynamic(import ('../../../components/WordbookDetail/WordbookConvertToCanvas'),{ssr:false});
+
 const WordbookDetail = ({ wordbook, user }) => {
   const [kanjiToggle, setKanjiToggle] = useState(true);
   const [yomiToggle, setYomiToggle] = useState(true);
   const [meanToggle, setMeanToggle] = useState(true);
   const [isFixedToggleBtn, setIsFixedToggleBtn] = useState(false);
+  const [isGeneratePdf, setIsGeneratePdf] = useState(false);
   // 단어 한개만 클릭할 시 상단 토글버튼과 상관없이 볼 수 있게/볼 수 없게끔 개별 단어의 토글 기능을 만든다
 
   useEffect(() => {
@@ -47,14 +52,27 @@ const WordbookDetail = ({ wordbook, user }) => {
     }
   };
 
+  const handlePdf = () => {
+    setIsGeneratePdf(true);
+  }
+
   return (
     <main className="wordbook-detail">
       <Head>
         <title>Vetsu X 2 - {wordbook.subject}</title>
       </Head>
-      <section className="wordbook-detail__container">
+      {!isGeneratePdf ? 
+        <WordbookConvertToCanvas 
+          wordbook={wordbook}
+          wordsCount={36}
+          backToWordbook={setIsGeneratePdf} 
+        /> : 
+      (<section className="wordbook-detail__container">
         <article>
           <h1 className="wordbook-detail__subject">{wordbook.subject}</h1>
+        </article>
+        <article>
+          <button type="button" onClick={handlePdf}>Create a PDF file</button>
         </article>
         <article 
           className="wordbook-detail__toggleBtn" 
@@ -133,7 +151,7 @@ const WordbookDetail = ({ wordbook, user }) => {
             (<Link href={`/editor/${wordbook._id}`}>
               <a className="wordbook-detail__update-btn">Update</a>
              </Link>) : null}
-        </section>
+        </section>)}
     </main>
   );
 };

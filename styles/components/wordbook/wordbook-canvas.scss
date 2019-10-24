@@ -1,0 +1,28 @@
+@import '../../abstracts/mixins.scss';
+
+.canvas-container {
+}
+
+.wordbook-table {
+  margin-top: 2rem;
+  width: 80rem;
+
+  &__subject {
+    font-size: 1.8rem;
+  }
+
+  &__word-container {
+    @include flexCenter;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  &__word {
+    height: 2.8rem;
+    font-size: 1.8rem;
+
+    td {
+      flex: 1 1 0;
+    }
+  }
+}

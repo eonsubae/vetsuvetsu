@@ -7,6 +7,7 @@ import Router from 'next/router';
 
 const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
   const [printingWords, setPrintingWords] = useState([]);
+  const [isSeeAll, setIsSeeAll] = useState(false);
   const wordlistRef = useRef(null);
 
   useEffect(() => {
@@ -18,23 +19,26 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
     }
     else {
       // 그 이외에는 wordsCount만큼 wordbook.words 안에서 셔플을 통해 임의로 단어를 선택해낸다
-      const words = wordbook.words.slice();
-      const randomWords = [];
-      let indexLimit = words.length - 1;
-  
-      for (let quantity = 0; quantity < wordsCount; quantity++) {
-        const idx = Math.floor(Math.random() * indexLimit--);
-        const pickedWord = words.splice(idx, 1)[0];
-        randomWords.push(pickedWord);
-      }
-
-      setPrintingWords(randomWords);
+      shuffleWords();
     }
   }, []);
 
+  const shuffleWords = () => {
+    const words = wordbook.words.slice();
+    const randomWords = [];
+    let indexLimit = words.length - 1;
+
+    for (let quantity = 0; quantity < wordsCount; quantity++) {
+      const idx = Math.floor(Math.random() * indexLimit--);
+      const pickedWord = words.splice(idx, 1)[0];
+      randomWords.push(pickedWord);
+    }
+
+    setPrintingWords(randomWords);
+  }
+
   const handlePdf = () => {
     const wordlist = wordlistRef.current;
-    console.log(wordlist);
 
     html2canvas(wordlist).then(canvas => {
       const doc = new jspdf('p', 'mm');
@@ -44,15 +48,26 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
       const imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
       const imgHeight = canvas.height * imgWidth / canvas.width;
 
-      doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+      doc.addImage(imgData, 'PNG', -2, 0, imgWidth, imgHeight);
 
       doc.save('word-test.pdf');
     })    
   };
+
+  const handleOnlyKanji = () => {
+    setIsSeeAll(false);
+  };
+
+  const handleSeeAll = () => {
+    setIsSeeAll(true);
+  };
   
   return (
     <main className="canvas-container">
-      <div>
+      <div className="canvas-btn-container">
+        <button type="button" onClick={shuffleWords}>Shuffle</button>
+        <button type="button" onClick={handleOnlyKanji}>Only Kanji</button>
+        <button type="button" onClick={handleSeeAll}>See All</button>
         <button type="button" onClick={handlePdf}>Create a file</button>
         <button type="button" onClick={_ => Router.push(`/wordbook/${wordbook._id}`)}>Close Pdf</button>
       </div>
@@ -63,9 +78,15 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
           </tr>
         </thead>
         <tbody>
+          <tr className="wordbook-table__word">
+            <td className="wordbook-table__word--number"></td>
+            <td className="wordbook-table__word--kanji">漢字</td>
+            <td className="wordbook-table__word--yomikata">読み方</td>
+            <td className="wordbook-table__word--meaning">意味</td>
+          </tr>
           {printingWords.map((w, idx) => 
             <tr key={wordbook._id + idx} className="wordbook-table__word">
-              <td className="wordbook-table__number">
+              <td className="wordbook-table__word--number">
                {idx + 1}
               </td>
               <td 
@@ -73,10 +94,19 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
               >{w.kanji}</td>
               <td 
                 className="wordbook-table__word--yomikata"
-              >{w.read}</td>
+              >
+                <span 
+                  style={isSeeAll ? 
+                        { visibility: 'visible' } : 
+                        { visibility: 'hidden'}}
+                >{w.read}</span></td>
               <td 
                 className="wordbook-table__word--meaning"
-              >{w.meaning}</td>
+              >
+                <span style={isSeeAll ? 
+                  { visibility: 'visible' } : 
+                  { visibility: 'hidden'}}
+                >{w.meaning}</span></td>
             </tr>
           )}
         </tbody>

@@ -23,6 +23,8 @@ const WordbookDetail = ({ wordbook, user }) => {
     window.addEventListener('scroll', handleToggleBtnPosition);
   }, []);
 
+  useEffect(() => () => window.removeEventListener('scroll', handleToggleBtnPosition), []);
+
   const handleToggleChange = (event: any) => {
     const btn = event.target;
     const target = btn.id
@@ -61,7 +63,7 @@ const WordbookDetail = ({ wordbook, user }) => {
       <Head>
         <title>Vetsu X 2 - {wordbook.subject}</title>
       </Head>
-      {!isGeneratePdf ? 
+      {isGeneratePdf ? 
         <WordbookConvertToCanvas 
           wordbook={wordbook}
           wordsCount={36}
@@ -72,7 +74,11 @@ const WordbookDetail = ({ wordbook, user }) => {
           <h1 className="wordbook-detail__subject">{wordbook.subject}</h1>
         </article>
         <article>
-          <button type="button" onClick={handlePdf}>Create a PDF file</button>
+          <button 
+            className="create-pdf-btn"
+            type="button" 
+            onClick={handlePdf}
+          >Create a PDF file</button>
         </article>
         <article 
           className="wordbook-detail__toggleBtn" 

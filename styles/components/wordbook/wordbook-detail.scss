@@ -1,6 +1,21 @@
 @import '../../abstracts/mixins.scss';
 @import '../../abstracts/variables.scss';
 
+.create-pdf-btn {
+  border: none;
+  border-radius: 4px;
+  background-color: cadetblue;
+  color: white;
+  width: 20rem;
+  height: 3.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+
+  @include respond(phone) {
+    display: none;
+  }
+}
+
 .wordbook-detail {
   @include flexCenter;
 
@@ -10,6 +25,10 @@
 
   &__subject {
     font-size: 2.5rem;
+
+    @include respond(phone) {
+      font-size: 2rem;
+    }
   }
 
   &__toggleBtn {
@@ -17,12 +36,15 @@
     @include absCenter;
 
     // top: 5rem;
-    transform: translate3d(-50%, 0%, 0);
+    transform: translate3d(-52%, 0%, 0);
     justify-content: space-around;
     width: 70rem;
+    margin-top: 1.8rem;
 
     @include respond(phone) {
+      margin-top: 0;
       width: 40rem;
+      transform: translate3d(-52%, -20%, 0);
     }
   }
 
@@ -39,9 +61,34 @@
 
     span {
       display: inline-block;
-      width: 33.333%;
       height: 100%;
+    }
+
+    &--kanji {
+      width: 30%;
       font-size: 2rem;
+
+      @include respond(phone) {
+        font-size: 1.8rem;
+      }
+    }
+
+    &--yomikata {
+      width: 35%;
+      font-size: 2rem;
+
+      @include respond(phone) {
+        font-size: 1.6rem;
+      }
+    }
+
+    &--meaning {
+      width: 35%;
+      font-size: 2rem;
+
+      @include respond(phone) {
+        font-size: 1.3rem;
+      }
     }
   }
 

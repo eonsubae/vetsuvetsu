@@ -50,7 +50,11 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
 
       doc.addImage(imgData, 'PNG', -2, 0, imgWidth, imgHeight);
 
-      doc.save('word-test.pdf');
+      if (isSeeAll) {
+        doc.save(wordbook.subject.replace(/ /g, '_') + '-answer.pdf');
+      } else {
+        doc.save(wordbook.subject.replace(/ /g, '_') + '-test.pdf');
+      }
     })    
   };
 

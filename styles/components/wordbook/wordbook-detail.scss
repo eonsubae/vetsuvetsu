@@ -36,7 +36,7 @@
     @include absCenter;
 
     // top: 5rem;
-    transform: translate3d(-52%, 0%, 0);
+    transform: translate3d(-50%, 0%, 0);
     justify-content: space-around;
     width: 70rem;
     margin-top: 1.8rem;
@@ -44,7 +44,7 @@
     @include respond(phone) {
       margin-top: 0;
       width: 40rem;
-      transform: translate3d(-52%, -20%, 0);
+      transform: translate3d(-48%, -20%, 0);
     }
   }
 
@@ -61,11 +61,21 @@
 
     span {
       display: inline-block;
+      width: 33.3%;
       height: 100%;
     }
 
     &--kanji {
-      width: 30%;
+      font-size: 2rem;
+
+      @include respond(phone) {
+        margin-left: 2rem;
+        width: 40%;
+        font-size: 2rem;
+      }
+    }
+
+    &--yomikata {
       font-size: 2rem;
 
       @include respond(phone) {
@@ -73,21 +83,11 @@
       }
     }
 
-    &--yomikata {
-      width: 35%;
-      font-size: 2rem;
-
-      @include respond(phone) {
-        font-size: 1.6rem;
-      }
-    }
-
     &--meaning {
-      width: 35%;
       font-size: 2rem;
 
       @include respond(phone) {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
       }
     }
   }

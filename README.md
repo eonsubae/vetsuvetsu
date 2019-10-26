@@ -104,10 +104,182 @@ Project homepage　:　https://vetsuvetsu.now.sh/
 
 매일 아침 어학원에서 테스트를 보는 것과 같은 형식으로 문제를 자동으로 생성하게끔 하고 싶었기 때문에 만들었습니다
 
-(毎朝、塾でテストを受けていることは同じ形式で問題を自動的に作るようにしたかったので作りました。)
+(毎朝、塾でテストを受けていることのような形式で問題を自動的に作るようにしたかったので作りました。)
 
 ## Skill Set（スキルセット）
 
+프로젝트에 사용한 스킬셋 리스트(プロジェクトに使っているスキルセットのリスト)
+* MERN Stack(MongoDB, Express, React, Node.js)
+* Sass(CSS Preprocessor)
+* Deployment : ZEIT NOW, MongoDB Atlas
+
+![MERN_STACK](docs/img/mern_pic.jpg)
+
+* MERN Stack
+  - MERN Stack은 현재 발전속도가 매우 빠른 자바스크립트 생태계에서 가장 보편적으로 사용하는 기술입니다
+  - MERN Stackは現代に発展のスピードが速すぎているJavascriptの生態系で最も普遍的に使っているスキルセットです。
+  - 자바스크립트라는 언어 하나로 클라이언트와 서버 모두를 개발할 수 있는 것이 장점입니다
+  - Javascriptというランゲージだけでクライアントとサーバーの総てをかいはつできるのが長所です。
+
+---
+
+![MONGODB](docs/img/mdb.png)
+
+* MongoDB
+  - Mongo라는 이름의 어원은 humongous(huge + monstrous)로 굉장한 정도의 의미를 가지고 있습니다
+  - Mongoという名前の語源はhumongous(huge + monstrous)で素晴らしいほどの意味を持っています。
+  - 데이터베이스 이름이 이 단어에서 기원한 이유는 MongoDB가 매우 많은 데이터를 저장할 수 있기 때문입니다
+  - データベースの名前がこの単語から始めた理由はMongoDBが多すぎる単語を囲うことができるからです。
+  - 최근의 웹환경은 과거에 비해 훨씬 많은 데이터를 저장해야 할 필요성이 생겼습니다
+  - 最近のWebの環境は昔に比べて多くのデータを囲いする必要ができます。
+  - 게다가 저장해야 하는 데이터는 정형화되지 않은 데이터들도 많아졌습니다
+  - それに囲いする必要があるデータは定型化がならないことも多くなります。
+  - MongoDB는 MySQL이나 Oracle같은 SQL과 다르게 schemeless합니다. 때문에 보다 데이터를 유연하게 다룰 수 있습니다
+  - MongoDBはMySQLやOracleなどSQLと違うschemelessです。だからよりデータを悠然に取ることができます。
+  - 이처럼 MongoDB는 많은 데이터를 저장해야 하는 매우 큰 애플리케이션을 위해 설계된 데이터베이스 입니다
+  - これ程MongoDBは多くのデータを囲いしなければならない多すぎるアプリケーションのために設計になったデータベースです。
+  - 물론 schemeless하다고 해서, SQL처럼 고정된 데이터 형태를 부여할 수 없거나 relation을 사용할 수 없는 것은 아닙니다
+  - 勿論schemelessからといって、SQLのような固定したデータの形を与えることやrelationを使うことができないわけではないです。
+
+* MongoDB의 Collection(SQL의 TABLE과 유사한 것) Schema - MongoDBのCollection Schema（SQLのTABLEと似合うこと）
+```js
+// User.ts
+const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false
+  },
+  role: {
+    type: String,
+    required: true,
+    default: 'student',
+    enum: ['student', 'admin', 'teacher']
+  },
+},{
+  timestamps: true
+});
+
+// Wordbook.ts
+const WordbookSchema = new mongoose.Schema({
+  subject: {
+    type: String,
+    required: true
+  },
+  words: {
+    type: [],
+    required: true
+  },
+  user: {
+    type: ObjectId,
+    ref: 'User',
+    required: true
+  },
+},{
+  timestamps: true
+});
+```
+* 위 코드는 mongoose라는 MongoDB의 ODM(SQL의 ORM)라이브러리로 스키마를 정의한 것입니다（上のcodeはmongooseというMongoDBのODM libraryで(SQLのORMのように)schemaを定義したことです。）
+  - 만약 SQL에서 TABLE을 정의해본 경험이 있다면 어렵지 않게 이해할 수 있을 것입니다
+  - もしSQLでTABLEを定義した経験があったら難しくなく理解ができるはずです。
+  - type이나 required, unique등 SQL에서 자주 사용하는 속성들을 동일하게 사용하고 있기 때문입니다
+  - typeやrequiredやuniqueなどSQLでよく使うpropertiesを同一に使っているからです。
+  - Wordbook의 schema의 user에서 ref를 지정해 관계를 설정하는 것도 유사합니다
+  - Wordbookのschemaのuserでrefを指定してrelationを設定することも類似しています。
+  - MongoDB에서는 SQL에서 JOIN을 사용해 관계가 있는 데이터들을 가져오는 것처럼 populate라는 기능을 사용해 관계가 있는 데이터들을 가져올 수 있습니다 
+  - MongoDBではSQLでJOINを使ってrelationがあるデータを持ってくるようにpopulateという機能を使ってrelationがあるデータを持ってくることができます。
+
+* MongoDB의 populate예시 코드 - MongoDBのpopulate例のcode
+```js
+// api/wordbook/index.ts
+import mongoose from 'mongoose';
+
+import Wordbook from '../../../models/Wordbook';
+import connectDb from '../../../utils/connectDb';
+
+const { ObjectId } = mongoose.Types;
+
+export default async (req, res) => {
+  connectDb();
+  switch (req.method) {
+    case "GET":
+      handleGetRequest(req, res);
+      break;
+    case "POST":
+      handlePostRequest(req, res);
+      break;
+    case "PUT":
+      handlePutRequest(req, res);
+      break;
+    default:
+      res.status(405).send(`Method ${req.method} not allowed`);
+      break;
+  }
+};
+
+const handleGetRequest = async (req, res) => {
+  try {
+    const { page, size } = req.query;
+    const pageNum = Number(page);
+    const pageSize = Number(size);
+    let wordbooks = [];
+    const totalWordbookCount = await Wordbook.countDocuments();
+    const totalPage = Math.ceil(totalWordbookCount / pageSize);
+  
+    require('../../../models/User');
+    if (pageNum === 1) {
+      wordbooks = await Wordbook
+                          .find()
+                          .populate({ // populateを使ってWordbookを作成したUserを持ってきます。
+                            path: 'user',
+                            model: 'User'
+                          })
+                          .limit(pageSize)
+                          .sort({ createdAt: 'desc' });
+    } else {
+      const skips = pageSize * (pageNum - 1);
+      wordbooks = await Wordbook
+                          .find()
+                          .populate({　// populateを使ってWordbookを作成したUserを持ってきます。
+                            path: 'user',
+                            model: 'User'
+                          })
+                          .skip(skips)
+                          .limit(pageSize)
+                          .sort({ createdAt: 'desc' });
+    }
+    res.status(200).send({ wordbooks, totalPage });
+  } catch (error) {
+    console.log(error);
+  }
+};
+// (...)
+```
+* GET /wordbook 경로로 api를 호출했을 때 실행되는 handleGetRequest 함수의 코드입니다
+* (GET /wordbookの経路にapiを呼び出す時エクセキュートされるhandleGetRequest関数のcodeです。)
+  - populate method로 user정보를 가져오고 있는 것을 볼 수 있습니다
+  - populate methodで userの情報を持ってきていることを見ることができます。
+  - 우선 Wordbook schema안에서 관계를 설정했던 속성(여기서는 user)을 path에 지정하고 있습니다
+  - まずWordbook schemaのなかでrelationを設定したpropertie(ここではuser)をpathに指定しています。
+  - 그런 다음 관계가 있는 Collection의 이름을 model에 지정하고 있습니다
+  - その後、relationがあるCollectionの名前をmodelに指定しています。
+
+---
+
+* React
+  - React는 서버사이드렌더링을 편리하게 지원해주는 Next.js라는 프레임워크를 사용했습니다
+  - ReactはSSR(Server Side Rendering)を便利に支援してくれるNext.jsというフレームワークを使いました。
+
+* Node.js, Express.js
 
 ```shell
 packagemanager install awesome-project

@@ -109,6 +109,7 @@ Project homepage　:　https://vetsuvetsu.now.sh/
 ## Skill Set（スキルセット）
 
 프로젝트에 사용한 스킬셋 리스트(プロジェクトに使っているスキルセットのリスト)
+* Typescript(Javascript superset)
 * MERN Stack(MongoDB, Express, React, Node.js)
 * Sass(CSS Preprocessor)
 * Deployment : ZEIT NOW, MongoDB Atlas
@@ -119,19 +120,19 @@ Project homepage　:　https://vetsuvetsu.now.sh/
   - MERN Stack은 현재 발전속도가 매우 빠른 자바스크립트 생태계에서 가장 보편적으로 사용하는 기술입니다
   - MERN Stackは現代に発展のスピードが速すぎているJavascriptの生態系で最も普遍的に使っているスキルセットです。
   - 자바스크립트라는 언어 하나로 클라이언트와 서버 모두를 개발할 수 있는 것이 장점입니다
-  - Javascriptというランゲージだけでクライアントとサーバーの総てをかいはつできるのが長所です。
+  - Javascriptというランゲージだけでクライアントとサーバーの総てを開発できることが長所です。
 
 ---
 
 ![MONGODB](docs/img/mdb.png)
 
 * MongoDB
-  - Mongo라는 이름의 어원은 humongous(huge + monstrous)로 굉장한 정도의 의미를 가지고 있습니다
-  - Mongoという名前の語源はhumongous(huge + monstrous)で素晴らしいほどの意味を持っています。
+  - Mongo라는 이름의 어원은 humongous(huge + monstrous)로 '굉장한' 정도의 의미를 가지고 있습니다
+  - Mongoという名前の語源はhumongous(huge + monstrous)で'素晴らしい'ほどの意味を持っています。
   - 데이터베이스 이름이 이 단어에서 기원한 이유는 MongoDB가 매우 많은 데이터를 저장할 수 있기 때문입니다
   - データベースの名前がこの単語から始めた理由はMongoDBが多すぎる単語を囲うことができるからです。
   - 최근의 웹환경은 과거에 비해 훨씬 많은 데이터를 저장해야 할 필요성이 생겼습니다
-  - 最近のWebの環境は昔に比べて多くのデータを囲いする必要ができます。
+  - 最近のWebの環境は昔に比べてはるかに多くのデータを囲いする必要ができます。
   - 게다가 저장해야 하는 데이터는 정형화되지 않은 데이터들도 많아졌습니다
   - それに囲いする必要があるデータは定型化がならないことも多くなります。
   - MongoDB는 MySQL이나 Oracle같은 SQL과 다르게 schemeless합니다. 때문에 보다 데이터를 유연하게 다룰 수 있습니다
@@ -264,8 +265,8 @@ const handleGetRequest = async (req, res) => {
 };
 // (...)
 ```
-* GET /wordbook 경로로 api를 호출했을 때 실행되는 handleGetRequest 함수의 코드입니다
-* (GET /wordbookの経路にapiを呼び出す時エクセキュートされるhandleGetRequest関数のcodeです。)
+* GET /wordbook endpoint로 api를 호출했을 때 실행되는 handleGetRequest 함수의 코드입니다
+* (GET /wordbook endpointにapiを呼び出す時エクセキュートされるhandleGetRequest関数のcodeです。)
   - populate method로 user정보를 가져오고 있는 것을 볼 수 있습니다
   - populate methodで userの情報を持ってきていることを見ることができます。
   - 우선 Wordbook schema안에서 관계를 설정했던 속성(여기서는 user)을 path에 지정하고 있습니다
@@ -275,7 +276,33 @@ const handleGetRequest = async (req, res) => {
 
 ---
 
-* React
+![react](docs/img/react.png)
+
+* React.js
+  - React는 UI를 편리하게 만들고 관리하도록 도와주는 라이브러리 입니다
+  - ReactはUIを便利につくって管理するように手伝ってくれるライブラリです。
+  - React를 사용하면 DOM을 직접 캐싱하는 등 절차적으로 기술해야 하는 수고가 줄어듭니다
+  - Reactを使ったらDOMを直接にcashingするなどの手続き型に述べらなきゃ苦労が減て行きます。
+  - 대신 무엇이 있어야 하는지를 기술하는 Declarative programming방식으로 개발 과정보다 결과물 자체(Business logic)에 더 집중할 수 있게 됩니다
+  - その代わり、どれがあるかを述べるDeclarative programming方式でプログラミングの課程より結果物の自体(Business logic)にもっと気を詰められるようになります。
+  - 그리고 React로 작성된 애플리케이션은 Single Page Application(이하 SPA)이라는 특징을 가지게 됩니다
+  - そしてReactで作るアプリケーション은Single Page Application(下略SPA)という特徴を持ちます。
+  - SPA는 Modern Web의 Paradigm으로 애플리케이션이 각기 다른 여러 페이지를 제공하는 것이 아닌 하나의 페이지만 가지게 되는 형태를 말합니다
+  - SPAはModern WebのParadigmでアプリケーションが其々違うページを提供しないで一ページだけ持ってくる形態を言います。
+  - Router별로 다른 페이지를 제공하는 기존의 애플리케이션은 요청 시마다 정적 리소스를 다운받고 전체 페이지를 Rerendering합니다
+  - Router別でほかのページを提供する既存のアプリケーションはUserのコールのたびにStatic Resourceをダウンロードして全体のページをRerenderingします。
+  - 이는 SPA에 비해 불필요한 트래픽을 늘리고 화면 전체가 새로고침되기 때문에 사용자에게 좋지 못한 경험을 줍니다
+  - これはSPAに比べて不必要なトラフィックを増やして画面の全体がRefreshになるせいでUserに良くない経験を差し上げます。
+  - SPA는 전체가 하나의 페이지이고 필요할 때마다 부분적인 데이터만 요청하므로 설치해서 사용하는 네이티브 앱과 유사한 User experience를 제공합니다
+  - SPAは全体が一ページで必要な時のたびに部分的なデータだけコールするのでインストールして使用するイティブアプリケーションと似合うUser experienceを提供します。
+  - React는 SPA를 만드는 라이브러리(혹은 프레임워크) 중 가장 인기가 있기 때문에 Open source의 풍부한 지원을 받을 수 있습니다
+  - ReactはSPAを作るライブラリ(あるいわフレームワーク)の中で一番人気があるのでオープンソースの豊かな支援を受けることができます。
+  - 게다가 Facebook에서 만든 라이브러리이고 Netflix나 Airbnb 등 전세계적인 기업들이 적극적으로 사용하고 있기 때문에 앞으로의 업데이트와 지원도 기대할 수 있습니다
+  - その上、Facebookから作られたライブラリだしNetflixやAirbnbなどのグローバル企業が積極的に使っているおかげでこれからのアップデートと支援も期待できます。
+
+![Next.js](docs/img/nextjs.png)
+
+* Next.js  
   - React는 서버사이드렌더링을 편리하게 지원해주는 Next.js라는 프레임워크를 사용했습니다
   - ReactはSSR(Server Side Rendering)を便利に支援してくれるNext.jsというフレームワークを使いました。
 

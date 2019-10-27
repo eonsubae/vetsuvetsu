@@ -17,6 +17,7 @@ const WordbookDetail = ({ wordbook, user }) => {
   const [meanToggle, setMeanToggle] = useState(true);
   const [isFixedToggleBtn, setIsFixedToggleBtn] = useState(false);
   const [isGeneratePdf, setIsGeneratePdf] = useState(false);
+  const [pdfWordCount, setPdfWordCount] = useState(35);
   // 단어 한개만 클릭할 시 상단 토글버튼과 상관없이 볼 수 있게/볼 수 없게끔 개별 단어의 토글 기능을 만든다
 
   useEffect(() => {
@@ -58,6 +59,10 @@ const WordbookDetail = ({ wordbook, user }) => {
     setIsGeneratePdf(true);
   }
 
+  const handlePdfCount = (e: any) => {
+    setPdfWordCount(e.target.value);
+  }
+
   return (
     <main className="wordbook-detail">
       <Head>
@@ -66,16 +71,26 @@ const WordbookDetail = ({ wordbook, user }) => {
       {isGeneratePdf ? 
         <WordbookConvertToCanvas 
           wordbook={wordbook}
-          wordsCount={36}
-          backToWordbook={setIsGeneratePdf} 
+          wordsCount={pdfWordCount}
         /> : 
       (<section className="wordbook-detail__container">
         <article>
           <h1 className="wordbook-detail__subject">{wordbook.subject}</h1>
         </article>
-        <article>
+        <article className="create-pdf">
+          <h2 className="create-pdf__word-count">{`단어수 : ${wordbook.words.length}개`}</h2>
+          <label htmlFor="question-count" className="create-pdf__question-count--label">
+            문제수&nbsp;:&nbsp;
+            <input 
+              type="number"
+              name="question-count"
+              className="create-pdf__question-count--input"
+              value={pdfWordCount}
+              onChange={handlePdfCount}
+            />
+          </label>
           <button 
-            className="create-pdf-btn"
+            className="create-pdf__btn"
             type="button" 
             onClick={handlePdf}
           >Create a PDF file</button>

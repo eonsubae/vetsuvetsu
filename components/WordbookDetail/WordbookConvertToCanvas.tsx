@@ -5,7 +5,7 @@ import jspdf from 'jspdf';
 import '../../styles/components/wordbook/wordbook-canvas.scss';
 import Router from 'next/router';
 
-const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
+const WordbookConvertToCanvas = ({ wordbook, wordsCount }) => {
   const [printingWords, setPrintingWords] = useState([]);
   const [isSeeAll, setIsSeeAll] = useState(false);
   const wordlistRef = useRef(null);
@@ -37,6 +37,27 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
     setPrintingWords(randomWords);
   }
 
+  // const handlePdf = () => {
+  //   const wordlist = wordlistRef.current;
+
+  //   html2canvas(wordlist).then(canvas => {
+  //     const doc = new jspdf('p', 'mm');
+
+  //     const imgData = canvas.toDataURL('image/png');
+
+  //     const imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
+  //     const imgHeight = canvas.height * imgWidth / canvas.width;
+
+  //     doc.addImage(imgData, 'PNG', -2, 0, imgWidth, imgHeight);
+
+  //     if (isSeeAll) {
+  //       doc.save(wordbook.subject.replace(/ /g, '_') + '-answer.pdf');
+  //     } else {
+  //       doc.save(wordbook.subject.replace(/ /g, '_') + '-test.pdf');
+  //     }
+  //   })    
+  // };
+
   const handlePdf = () => {
     const wordlist = wordlistRef.current;
 
@@ -45,10 +66,21 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
 
       const imgData = canvas.toDataURL('image/png');
 
-      const imgWidth = 210; // 이미지 가로 길이(mm) A4 기준
-      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const imgWidth = 210;
+      var pageHeight = 295;
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
+      let position = 0;
 
-      doc.addImage(imgData, 'PNG', -2, 0, imgWidth, imgHeight);
+      doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
 
       if (isSeeAll) {
         doc.save(wordbook.subject.replace(/ /g, '_') + '-answer.pdf');
@@ -75,46 +107,48 @@ const WordbookConvertToCanvas = ({ wordbook, wordsCount, backToWordbook }) => {
         <button type="button" onClick={handlePdf}>Create a file</button>
         <button type="button" onClick={_ => Router.push(`/wordbook/${wordbook._id}`)}>Close Pdf</button>
       </div>
-      <table className="wordbook-table" ref={wordlistRef}>
-        <thead>
-          <tr>
-            <th className="wordbook-table__subject" colSpan={4}>{wordbook.subject}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="wordbook-table__word">
-            <td className="wordbook-table__word--number"></td>
-            <td className="wordbook-table__word--kanji">漢字</td>
-            <td className="wordbook-table__word--yomikata">読み方</td>
-            <td className="wordbook-table__word--meaning">意味</td>
-          </tr>
-          {printingWords.map((w, idx) => 
-            <tr key={wordbook._id + idx} className="wordbook-table__word">
-              <td className="wordbook-table__word--number">
-               {idx + 1}
-              </td>
-              <td 
-                className="wordbook-table__word--kanji" 
-              >{w.kanji}</td>
-              <td 
-                className="wordbook-table__word--yomikata"
-              >
-                <span 
-                  style={isSeeAll ? 
-                        { visibility: 'visible' } : 
-                        { visibility: 'hidden'}}
-                >{w.read}</span></td>
-              <td 
-                className="wordbook-table__word--meaning"
-              >
-                <span style={isSeeAll ? 
-                  { visibility: 'visible' } : 
-                  { visibility: 'hidden'}}
-                >{w.meaning}</span></td>
+      <div>
+        <table className="wordbook-table" ref={wordlistRef}>
+          <thead>
+            <tr>
+              <th className="wordbook-table__subject" colSpan={4}>{wordbook.subject}</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <tr className="wordbook-table__word">
+              <td className="wordbook-table__word--number"></td>
+              <td className="wordbook-table__word--kanji">漢字</td>
+              <td className="wordbook-table__word--yomikata">読み方</td>
+              <td className="wordbook-table__word--meaning">意味</td>
+            </tr>
+            {printingWords.map((w, idx) => 
+              <tr key={wordbook._id + idx} className="wordbook-table__word">
+                <td className="wordbook-table__word--number">
+                 {idx + 1}
+                </td>
+                <td 
+                  className="wordbook-table__word--kanji" 
+                >{w.kanji}</td>
+                <td 
+                  className="wordbook-table__word--yomikata"
+                >
+                  <span 
+                    style={isSeeAll ? 
+                          { visibility: 'visible' } : 
+                          { visibility: 'hidden'}}
+                  >{w.read}</span></td>
+                <td 
+                  className="wordbook-table__word--meaning"
+                >
+                  <span style={isSeeAll ? 
+                    { visibility: 'visible' } : 
+                    { visibility: 'hidden'}}
+                  >{w.meaning}</span></td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 };

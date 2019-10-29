@@ -133,6 +133,10 @@
     color: white;
     background-color: $main-black;
     border-radius: .5rem;
+
+    @include respond(phone) {
+      display: none;
+    }
   }
 }
 

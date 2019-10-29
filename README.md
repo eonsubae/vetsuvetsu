@@ -108,7 +108,7 @@ Project homepage　:　https://vetsuvetsu.now.sh/
 
 ## Skill Set（スキルセット）
 
-프로젝트에 사용한 스킬셋 리스트(プロジェクトに使っているスキルセットのリスト)
+프로젝트에 사용한 스킬셋 리스트(プロジェクトに使われているスキルセットのリスト)
 * Typescript(Javascript superset)
 * MERN Stack(MongoDB, Express, React, Node.js)
 * Sass(CSS Preprocessor)
@@ -118,7 +118,7 @@ Project homepage　:　https://vetsuvetsu.now.sh/
 
 * MERN Stack
   - MERN Stack은 현재 발전속도가 매우 빠른 자바스크립트 생태계에서 가장 보편적으로 사용하는 기술입니다
-  - MERN Stackは現代に発展のスピードが速すぎているJavascriptの生態系で最も普遍的に使っているスキルセットです。
+  - MERN Stackは現代発展のスピードが速すぎるJavascriptの生態系で最も普遍的に使われているスキルセットです。
   - 자바스크립트라는 언어 하나로 클라이언트와 서버 모두를 개발할 수 있는 것이 장점입니다
   - Javascriptというランゲージだけでクライアントとサーバーの総てを開発できることが長所です。
 
@@ -128,13 +128,13 @@ Project homepage　:　https://vetsuvetsu.now.sh/
 
 * MongoDB
   - Mongo라는 이름의 어원은 humongous(huge + monstrous)로 '굉장한' 정도의 의미를 가지고 있습니다
-  - Mongoという名前の語源はhumongous(huge + monstrous)で'素晴らしい'ほどの意味を持っています。
+  - Mongoという名前の語源はhumongous(huge + monstrous)で'素晴らしい'といった意味を持っています。
   - 데이터베이스 이름이 이 단어에서 기원한 이유는 MongoDB가 매우 많은 데이터를 저장할 수 있기 때문입니다
-  - データベースの名前がこの単語から始めた理由はMongoDBが多すぎる単語を囲うことができるからです。
+  - データベースの名前がこの単語から始められた理由はMongoDBが多くのデータを囲うことができるからです。
   - 최근의 웹환경은 과거에 비해 훨씬 많은 데이터를 저장해야 할 필요성이 생겼습니다
-  - 最近のWebの環境は昔に比べてはるかに多くのデータを囲いする必要ができます。
+  - 最近のWebの環境は昔に比べ、はるかに多くのデータを囲いする必要があります。
   - 게다가 저장해야 하는 데이터는 정형화되지 않은 데이터들도 많아졌습니다
-  - それに囲いする必要があるデータは定型化がならないことも多くなります。
+  - それに囲いする必要なデータは定型化がならないことも多くなります。
   - MongoDB는 MySQL이나 Oracle같은 SQL과 다르게 schemeless합니다. 때문에 보다 데이터를 유연하게 다룰 수 있습니다
   - MongoDBはMySQLやOracleなどSQLと違うschemelessです。だからよりデータを悠然に取ることができます。
   - 이처럼 MongoDB는 많은 데이터를 저장해야 하는 매우 큰 애플리케이션을 위해 설계된 데이터베이스 입니다

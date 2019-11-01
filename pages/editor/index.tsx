@@ -139,6 +139,9 @@ const Editor: React.FC = () => {
               ref={titleRef}
             />
           </label>
+          <h1 className="editor__form--info">
+            한자, 요미카타, 의미 순으로 입력하세요(입력 후 Caps Lock키를 누르세요)
+          </h1>
           <div className="editor__form--row-container">
             {rowEditors}
           </div>

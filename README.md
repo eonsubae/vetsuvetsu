@@ -372,57 +372,8 @@ const handleGetRequest = async (req, res) => {
 ![Next.js](docs/img/nextjs.png)
 
 * Next.js  
-  - React는 서버사이드렌더링을 편리하게 지원해주는 Next.js라는 프레임워크를 사용했습니다
+  - React는 서버 사이드 렌더링을 편리하게 지원해주는 Next.js라는 프레임워크를 사용했습니다
   - ReactはSSR(Server Side Rendering)を便利に支援してくれるNext.jsというフレームワークを使いました。
+  - SPA는 기본적으로 클라이언트 사이드 렌더링
 
 * Node.js, Express.js
-
-```shell
-packagemanager install awesome-project
-awesome-project start
-awesome-project "Do something!"  # prints "Nah."
-```
-
-```shell
-git clone https://github.com/your/awesome-project.git
-cd awesome-project/
-packagemanager install
-```
-
-```shell
-./configure
-make
-make install
-```
-
-```shell
-packagemanager deploy awesome-project -s server.com -u username -p password
-```
-
-## Features
-
-What's all the bells and whistles this project can perform?
-* What's the main functionality
-* You can also do another thing
-* If you get really randy, you can even do this
-
-## Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
-
-## Links
-
-Even though this information can be found inside the project on machine-readable
-format like in a .json file, it's good to include a summary of most useful
-links to humans using your project. You can include links like:
-
-- Project homepage: https://your.github.com/awesome-project/
-- Repository: https://github.com/your/awesome-project/
-- Issue tracker: https://github.com/your/awesome-project/issues
-  - In case of sensitive bugs like security vulnerabilities, please contact
-    my@email.com directly instead of using issue tracker. We value your effort
-    to improve the security and privacy of this project!
-- Related projects:
-  - Your other project: https://github.com/your/other-project/
-  - Someone else's project: https://github.com/someones/awesome-project/

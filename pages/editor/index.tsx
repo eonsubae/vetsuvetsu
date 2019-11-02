@@ -36,7 +36,7 @@ const Editor: React.FC = () => {
   const [rowEditors, setRowEditors] = useState(
     [
       <EditorRow 
-        key={rowCount}
+        key={`editRow-${rowCount}`}
         onComplete={onComplete}
       />
     ]

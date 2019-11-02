@@ -3,12 +3,12 @@ import { MdEdit } from 'react-icons/md';
 
 import '../../styles/components/editor/editor-small.scss';
 
-type SmallElement = {
+type EditSmallProps = {
   type: string,
   value: string
 };
 
-const EditorSmall = (el: SmallElement) => {
+const EditorSmall = (el: EditSmallProps) => {
   const [editedText, setEditedText] = useState(el.value);
   const [useEdit, setUseEdit] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);

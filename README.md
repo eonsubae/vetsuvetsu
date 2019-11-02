@@ -176,6 +176,50 @@ Typescript의 장점(Typescriptの長所)
   - Javascriptの場合、IDEで問題で認めることができないので、後で関数が実行された後で問題を発見するようになります。
   - 이 외에도 다른 타입끼리의 비교나 null 타입 체크 누락 등은 Typescript를 사용하면 쉽게 문제를 찾아낼 수 있습니다 
   - この以外にもほかのタイプの変数との比較やnullタイのプチェックの漏れなどはTypescriptを使ったら易しく問題を発見ができます。
+* 다른 사람의 코드를 더 읽기 편해진다(他の人のcodeを読みやすくなります。)
+  - Javascriptを使う時よりTypeがありますのでcodeの目的を理解することが便利になります。
+```ts
+// EditorRow.tsx
+type Element = {
+  type: string;
+  value: any;
+};
+
+type EditRowProps = {
+  onComplete: () => void;
+  row?: any;
+}
+
+const EditorRow = ({ onComplete, row }: EditRowProps) => {
+  const [inputText, setInputText] = useState("");
+  const [elements, setElements] = useState<Element[]>([]);
+  const [isComplete, setIsComplete] = useState(false);
+  const rowContainerRef = useRef<HTMLDivElement>(null);
+  // (...)
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const keyCode = event.keyCode;
+    // (...)
+  };
+  // (...)
+  const handleTextInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const val = event.target.value;
+    if (val === " ") return;
+    setInputText(val);
+  };
+
+  const handleRowRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const row: HTMLElement | null = event.currentTarget.parentElement;
+    const rowCount: number = row.parentElement.childNodes.length;
+
+    if (rowCount === 1) return;
+    row.remove();
+  };
+
+  // (...)
+}
+```
+* typeやinterfaceの内容を読む時variableの名前とtypeに通じてComponentやFunctionの動作を以前より予測ことが出来るうになります。
 
 ---
 

@@ -307,8 +307,7 @@ const handleGetRequest = async (req, res) => {
 * Next.js  
   - ReactはSSR(Server Side Rendering)を便利に支援してくれるNext.jsというフレームワークを使いました。
   - SPAは基本的にCSR(Client Side Rendering)を使います。
-  - CSRを使っているサイトは二つの短所を持っています。
-  - まず、SEO(Search Engine Optimization)に弱いです。
+  - CSRを使っているサイトはSEO(Search Engine Optimization)に対して短所を持っています。
   - グーグルの以外の検索エンジンはJavascriptをエクセキュートしないですからCSRを使っているサイトは内容がないサイトと同じに扱われになります。
   - 例えば、下の写真を見るとCSRを使っているngx-restangularというサイトとSSRを使っているこのプロジェクトのサイトの違うことを気付くことができます。
   
@@ -325,6 +324,9 @@ Vetsuvetsu
 ![vetsu-ssr-1](docs/img/vetsussr.png)
 ![vetsu-ssr-2](docs/img/vetsussr2.png)
   - サーバからhtmlをもらって内容をしっかり見せています。
+  - 勿論、SSRはNext.jsがなくても直接に作ることもできます。
+  - でも、サーバの設定やReactのrenderToStringとhydrate作業のために複雑な課程が必要です。
+  - それで、SSRが必要だったら一般的にNext.jsを使います。
 
 # P.S
 
